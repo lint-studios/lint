@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")      // Uses pgbouncer connection for app traffic
+  directUrl = env("DIRECT_URL")        // Uses direct connection for migrations
+}
+
+model Organization {
+  id          String   @id                // == Clerk orgId
+  name        String
+  slug        String?
+  logoUrl     String?
+  siteUrl     String?
+  industry    String?
+  platform    String?                     // "Shopify" | "WooCommerce" | "Custom" | "Other"
+  timezone    String?                     // IANA tz, e.g. "America/New_York"
+  updatedAt   DateTime @updatedAt
+  createdAt   DateTime @default(now())
+
+  // domain tables will reference organizationId
+  // reviews   Review[]
+  // insights  Insight[]
+  // reports   Report[]
+
+  @@map("organizations")
+}

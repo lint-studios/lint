@@ -4,27 +4,6 @@ import { SignedIn, SignedOut } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
-function RedirectToDashboard() {
-  const router = useRouter()
-  
-  useEffect(() => {
-    router.push('/dashboard')
-  }, [router])
-
-  return (
-    <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center">
-      <div className="text-center">
-        <h1 className="font-body text-[1.875rem] font-medium leading-tight tracking-[-0.094rem] text-black mb-4">
-          lint<span className="text-primary">.</span>
-        </h1>
-        <p className="text-body-m font-body text-text-secondary mb-6">
-          Redirecting to dashboard...
-        </p>
-      </div>
-    </div>
-  )
-}
-
 function RedirectToCustomSignIn() {
   const router = useRouter()
   
@@ -46,15 +25,19 @@ function RedirectToCustomSignIn() {
   )
 }
 
-export default function Home() {
+export default function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
     <>
       <SignedIn>
-        <RedirectToDashboard />
+        {children}
       </SignedIn>
-              <SignedOut>
-          <RedirectToCustomSignIn />
-        </SignedOut>
+      <SignedOut>
+        <RedirectToCustomSignIn />
+      </SignedOut>
     </>
   )
 }

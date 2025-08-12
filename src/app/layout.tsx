@@ -3,6 +3,7 @@ import './styles/figma/tokens.css'
 import './styles/figma/fonts.css'
 import './styles/figma/figma.css'
 import { DM_Sans, Crimson_Text } from "next/font/google"
+import { ClerkProvider } from '@clerk/nextjs'
 
 const dmSans = DM_Sans({ 
   subsets: ["latin"], 
@@ -29,7 +30,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${dmSans.variable} ${crimson.variable}`}>
-      <body className="font-sans">{children}</body>
+      <body className="font-sans">
+        <ClerkProvider>
+          {children}
+        </ClerkProvider>
+      </body>
     </html>
   )
 }

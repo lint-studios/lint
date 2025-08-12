@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  // Removed 'output: export' to enable server-side features for Clerk authentication
   trailingSlash: true,
   images: {
     unoptimized: true

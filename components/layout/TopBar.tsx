@@ -100,7 +100,7 @@ export function TopBar({ onNavigateHome }: TopBarProps = {}) {
                 {user?.fullName || user?.emailAddresses[0]?.emailAddress || 'User'}
               </div>
               <div className="text-mono-label font-mono text-text-secondary">
-                {user?.publicMetadata?.role || 'Beta'}
+                {(user?.publicMetadata?.role as string) || 'Beta'}
               </div>
             </div>
             <ChevronDown className={`h-4 w-4 text-text-secondary transition-transform duration-200 ${isUserMenuOpen ? 'rotate-180' : ''}`} />

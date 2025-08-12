@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Lint Dashboard
 
 A modern customer feedback analytics dashboard built with Next.js 14, TypeScript, and Tailwind CSS.

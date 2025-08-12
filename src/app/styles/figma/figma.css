@@ -1,0 +1,168 @@
+/* Optional: any generic polish rules */
+.card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+.tile { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: 1.25rem; }
+.badge { display:inline-flex; align-items:center; border-radius:9999px; padding: .25rem .625rem; font-size:.875rem; font-weight:500; background:#EEFDF5; color:#065F46; border:1px solid #D1FAE5; }
+.btn-primary { display:inline-flex; align-items:center; gap:.5rem; border-radius:9999px; padding:.5rem 1rem; font-weight:600; background:var(--primary); color:#fff; box-shadow:var(--shadow-sm); }
+.btn-primary:hover { filter: brightness(0.95); }
+.sidebar-active { background:#fff; color:var(--text-primary); border:1px solid var(--border); box-shadow:var(--shadow-sm); }
+
+/* CTA button like Figma (pill, gradient, soft shadow) */
+.btn-cta {
+  display:inline-flex; align-items:center; gap:.5rem;
+  padding:.625rem 1rem; border-radius:9999px; font-weight:600;
+  color:#fff; background: linear-gradient(180deg, var(--cta-start), var(--cta-end));
+  box-shadow: 0 6px 18px rgba(37,99,235,.25);
+}
+.btn-cta:hover { filter: brightness(0.97); }
+.btn-cta:focus-visible { outline: none; box-shadow: 0 0 0 4px var(--focus); }
+
+/* Section panels (mint tint with soft border + rounded-2xl) */
+.panel {
+  background: var(--panel-tint);
+  border: 1px solid var(--panel-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+}
+
+/* KPI card polish */
+.kpi {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+  padding: 1.25rem;
+}
+.kpi:hover { box-shadow: var(--shadow-md); transition: box-shadow .2s; }
+.kpi-icon {
+  display:inline-flex; align-items:center; justify-content:center;
+  width: 32px; height: 32px; border-radius: 9999px;
+  background: var(--chip-bg); color: var(--chip-icon);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Green positive badge */
+.badge-pos {
+  display:inline-flex; align-items:center; gap:.375rem;
+  border-radius: 9999px; padding: .25rem .5rem; font-weight:600; font-size:.8125rem;
+  background:#E7F9EF; color:#0B6B3A; border:1px solid #CFF3DC;
+}
+
+/* Sidebar active (solid blue pill) */
+.sidebar-active {
+  background: var(--brand);
+  color: #fff !important;
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+}
+.sidebar-active svg { color:#fff; opacity: 1; }
+
+/* === Figma polish utilities (non-destructive) === */
+
+/* Headings & text */
+.h1-display { font-family: var(--font-display, serif); letter-spacing: -0.01em; }
+.subtle { color: var(--muted); }
+
+/* CTA & Profile pills */
+.btn-cta {
+  display:inline-flex; align-items:center; gap:.5rem;
+  padding:.625rem 1rem; border-radius:9999px; font-weight:600; color:#fff;
+  background: linear-gradient(180deg, #2f6df0, #1e5ae6);
+  box-shadow: 0 8px 22px rgba(37,99,235,.28);
+}
+.btn-cta:hover { filter: brightness(0.97); }
+
+.profile-pill {
+  display:inline-flex; align-items:center; gap:.5rem; color:#fff;
+  background: linear-gradient(180deg, #2f6df0, #1e5ae6);
+  border-radius: 9999px; padding:.5rem .75rem;
+  box-shadow: 0 10px 24px rgba(37,99,235,.3);
+}
+
+/* Sidebar */
+.sidebar-active { background: var(--brand); color:#fff!important; border-radius:12px; }
+.sidebar-link { color: var(--text-secondary); }
+.sidebar-link:hover { background:#fff; color: var(--text-primary); border-radius:12px; }
+
+/* KPI cards */
+.kpi {
+  background: var(--card); border:1px solid var(--border); border-radius:16px;
+  box-shadow: var(--shadow-sm); padding: 1.25rem;
+}
+.kpi-label { font-size: 11px; letter-spacing: .14em; color: var(--muted); }
+.kpi-value { font-size: 36px; font-weight: 600; line-height: 1; }
+.kpi-chip {
+  display:inline-flex; align-items:center; justify-content:center;
+  width:32px; height:32px; border-radius:9999px; background:#F1F5FF; color:#3867F2;
+  box-shadow: var(--shadow-sm);
+}
+.badge-pos {
+  display:inline-flex; align-items:center; gap:.375rem; font-weight:600; font-size:.8125rem;
+  padding:.25rem .5rem; border-radius:9999px; background:#E7F9EF; color:#0B6B3A; border:1px solid #CFF3DC;
+}
+
+/* Panels */
+.panel {
+  background:#E8F4EF; border:1px solid #D5E8E1; border-radius:16px; padding:1.5rem;
+}
+.panel-card {
+  background:var(--card); border:1px solid var(--border); border-radius:16px;
+  padding:1rem 1.25rem; box-shadow: var(--shadow-sm);
+}
+
+/* Lint brand gradient */
+.gradient-lint {
+  background: linear-gradient(135deg, #2563EB 0%, #3B82F6 25%, #10B981 50%, #F97316 75%, #FB923C 100%);
+  position: relative;
+}
+
+.gradient-lint:hover {
+  background: linear-gradient(135deg, #1D4ED8 0%, #2563EB 25%, #059669 50%, #EA580C 75%, #F97316 100%);
+}
+
+/* Typography Classes */
+.font-display {
+  font-family: var(--font-display, 'Crimson Text', serif);
+}
+
+.font-body {
+  font-family: var(--font-sans, 'DM Sans', sans-serif);
+}
+
+.font-mono {
+  font-family: 'Roboto Mono', monospace;
+}
+
+.text-display-xl {
+  font-size: var(--text-display-xl, 3rem);
+  line-height: var(--line-height-display-xl, 3.5rem);
+}
+
+.text-display-l {
+  font-size: var(--text-display-l, 2.25rem);
+  line-height: var(--line-height-display-l, 2.75rem);
+}
+
+.text-heading-m {
+  font-size: var(--text-heading-m, 1.5rem);
+  line-height: var(--line-height-heading-m, 2rem);
+}
+
+.text-heading-s {
+  font-size: var(--text-heading-s, 1.25rem);
+  line-height: var(--line-height-heading-s, 1.75rem);
+}
+
+.text-body-m {
+  font-size: var(--text-body-m, 1rem);
+  line-height: var(--line-height-body-m, 1.5rem);
+}
+
+.text-body-s {
+  font-size: var(--text-body-s, 0.875rem);
+  line-height: var(--line-height-body-s, 1.25rem);
+}
+
+.text-mono-label {
+  font-size: var(--text-mono-label, 0.75rem);
+  line-height: var(--line-height-mono-label, 1rem);
+}

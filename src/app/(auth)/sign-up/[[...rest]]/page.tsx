@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from "react";
-import { useSignUp, useClerk } from '@clerk/nextjs';
+import { useSignUp, useClerk, useOrganization } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
 import { Button } from "../../../../../components/ui/button";
 import { Input } from "../../../../../components/ui/input";
@@ -13,6 +13,7 @@ import Link from 'next/link';
 
 export default function CustomSignUpPage() {
   const { isLoaded, signUp, setActive } = useSignUp();
+  const { organization } = useOrganization();
   const router = useRouter();
   
   const [showPassword, setShowPassword] = useState(false);
@@ -20,7 +21,8 @@ export default function CustomSignUpPage() {
     email: "",
     password: "",
     firstName: "",
-    lastName: ""
+    lastName: "",
+    organizationName: ""
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -32,6 +34,29 @@ export default function CustomSignUpPage() {
     { text: "Contains uppercase letter", met: /[A-Z]/.test(formData.password) },
     { text: "Contains number", met: /\d/.test(formData.password) }
   ];
+
+  // Helper function to create organization after successful sign-up
+  const createOrganizationIfNeeded = async () => {
+    if (formData.organizationName.trim()) {
+      try {
+        const response = await fetch('/api/organizations', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: formData.organizationName.trim()
+          }),
+        });
+        
+        if (!response.ok) {
+          console.error('Failed to create organization');
+        }
+      } catch (error) {
+        console.error('Error creating organization:', error);
+      }
+    }
+  };
 
   const handleEmailSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,6 +79,7 @@ export default function CustomSignUpPage() {
         setPendingVerification(true);
       } else if (result.status === "complete") {
         await setActive({ session: result.createdSessionId });
+        await createOrganizationIfNeeded();
         router.push("/dashboard");
       }
     } catch (err: any) {
@@ -77,6 +103,7 @@ export default function CustomSignUpPage() {
 
       if (completeSignUp.status === "complete") {
         await setActive({ session: completeSignUp.createdSessionId });
+        await createOrganizationIfNeeded();
         router.push("/dashboard");
       }
     } catch (err: any) {
@@ -250,6 +277,23 @@ export default function CustomSignUpPage() {
                 placeholder="Enter your email"
                 required
               />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="organizationName" className="font-mono text-mono-label text-text-secondary uppercase tracking-wide">
+                Organization Name <span className="text-text-tertiary">(Optional)</span>
+              </Label>
+              <Input
+                id="organizationName"
+                type="text"
+                value={formData.organizationName}
+                onChange={(e) => setFormData(prev => ({ ...prev, organizationName: e.target.value }))}
+                className="h-12 font-body text-body-m rounded-xl border border-border-subtle focus:ring-2 focus:ring-primary focus:border-transparent"
+                placeholder="Enter your organization name"
+              />
+              <p className="text-body-xs font-body text-text-secondary">
+                Create a workspace for your team (you can add this later)
+              </p>
             </div>
 
             <div className="space-y-2">

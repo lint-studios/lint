@@ -3,7 +3,7 @@
 import { ChevronDown, Bell, LogOut } from "lucide-react";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
-import { useUser, useClerk } from '@clerk/nextjs';
+import { useUser, useClerk, OrganizationSwitcher } from '@clerk/nextjs';
 import { useState, useRef, useEffect } from 'react';
 
 interface TopBarProps {
@@ -52,6 +52,27 @@ export function TopBar({ onNavigateHome }: TopBarProps = {}) {
 
       {/* User Menu */}
       <div className="flex items-center space-x-4">
+        {/* Organization Switcher */}
+        <div className="hidden sm:block">
+          <OrganizationSwitcher
+            appearance={{
+              elements: {
+                rootBox: "flex items-center",
+                organizationSwitcherTrigger: "p-2 rounded-xl border border-border-subtle hover:bg-surface-hover transition-colors",
+                organizationSwitcherTriggerIcon: "w-4 h-4",
+                organizationPreview: "font-body text-body-s",
+                organizationPreviewAvatarBox: "w-6 h-6",
+                organizationPreviewMainIdentifier: "font-body text-body-s font-medium text-text-primary",
+                organizationPreviewSecondaryIdentifier: "font-mono text-mono-label text-text-secondary",
+              }
+            }}
+            hidePersonal={false}
+            createOrganizationMode="modal"
+            afterCreateOrganizationUrl="/dashboard"
+            afterSelectOrganizationUrl="/dashboard"
+          />
+        </div>
+
         {/* Notifications */}
         <Button
           variant="ghost"

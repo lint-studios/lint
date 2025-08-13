@@ -1,6 +1,6 @@
 import { clerkMiddleware } from "@clerk/nextjs/server";
 
-// Create a custom middleware that excludes webhook routes and organization API routes
+// Create a custom middleware that excludes webhook routes and test routes
 export default clerkMiddleware((auth, req) => {
   console.log('🚀 Middleware called for:', req.nextUrl.pathname);
   
@@ -10,18 +10,13 @@ export default clerkMiddleware((auth, req) => {
     return;
   }
   
-  // Skip middleware for organization API routes (they handle auth internally)
-  if (req.nextUrl.pathname.startsWith('/api/organizations/')) {
-    console.log('⏭️ Skipping middleware for organization API route');
-    return;
-  }
-  
   // Skip middleware for test-db route
   if (req.nextUrl.pathname.startsWith('/api/test-db')) {
     console.log('⏭️ Skipping middleware for test-db route');
     return;
   }
   
+  // Apply Clerk authentication for all other routes (including organization APIs)
   console.log('🔐 Applying auth middleware');
 });
 

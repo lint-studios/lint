@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Input } from "../ui/input";
@@ -47,46 +47,97 @@ export function DataSources() {
   const [isHowItWorksOpen, setIsHowItWorksOpen] = useState(false);
   const [formData, setFormData] = useState<ConnectionFormData>({
     apiKey: "",
-    storeUrl: ""
+    storeUrl: "yourstore.myshopify.com"
   });
   const [isConnecting, setIsConnecting] = useState(false);
+  const [isTesting, setIsTesting] = useState(false);
+  const [integrations, setIntegrations] = useState<Integration[]>([]);
 
-  // MVP integrations (currently available)
-  const mvpIntegrations: Integration[] = [
-    {
-      id: "judgeme",
-      title: "Judge.me",
-      subtitle: "Sync reviews automatically",
-      icon: Star,
-      iconBg: "bg-[#FF6B35]",
-      actionLabel: "Connect",
-      tooltipText: "Enter your Judge.me API key to pull in your latest product reviews automatically.",
+  // Initialize integrations
+  useEffect(() => {
+    const mvpIntegrations: Integration[] = [
+      {
+        id: "judgeme",
+        title: "Judge.me",
+        subtitle: "Sync reviews automatically",
+        icon: Star,
+        iconBg: "bg-[#FF6B35]",
+        actionLabel: "Connect",
+        tooltipText: "Enter your Judge.me API key to pull in your latest product reviews automatically.",
+        connected: false,
+        type: "api"
+      },
+      {
+        id: "reviews-csv",
+        title: "Reviews CSV Upload",
+        subtitle: "From Amazon, Yotpo, Okendo, Loox…",
+        icon: Upload,
+        iconBg: "bg-accent",
+        actionLabel: "Upload File",
+        tooltipText: "Upload a CSV file containing product reviews from any platform.",
+        connected: false,
+        type: "upload"
+      },
+      {
+        id: "support-csv",
+        title: "Support Tickets CSV Upload",
+        subtitle: "From Zendesk, Gorgias, Freshdesk…",
+        icon: FileText,
+        iconBg: "bg-neutral",
+        actionLabel: "Upload File",
+        tooltipText: "Upload a CSV file with your customer support tickets for analysis.",
+        connected: false,
+        type: "upload"
+      }
+    ];
+
+    setIntegrations(mvpIntegrations);
+    // Check for existing connections on component mount
+    checkExistingConnections();
+    console.log('DataSources component initialized - checking for existing connections');
+  }, []);
+
+  // Reset function to clear any cached state
+  const resetConnections = () => {
+    setIntegrations(prev => prev.map(integration => ({
+      ...integration,
       connected: false,
-      type: "api"
-    },
-    {
-      id: "reviews-csv",
-      title: "Reviews CSV Upload",
-      subtitle: "From Amazon, Yotpo, Okendo, Loox…",
-      icon: Upload,
-      iconBg: "bg-accent",
-      actionLabel: "Upload File",
-      tooltipText: "Upload a CSV file containing product reviews from any platform.",
-      connected: false,
-      type: "upload"
-    },
-    {
-      id: "support-csv",
-      title: "Support Tickets CSV Upload",
-      subtitle: "From Zendesk, Gorgias, Freshdesk…",
-      icon: FileText,
-      iconBg: "bg-neutral",
-      actionLabel: "Upload File",
-      tooltipText: "Upload a CSV file with your customer support tickets for analysis.",
-      connected: false,
-      type: "upload"
+      actionLabel: integration.id === 'judgeme' ? 'Connect' : integration.actionLabel
+    })));
+    console.log('Connections reset to false');
+  };
+
+  // Check for existing connections without making API calls
+  const checkExistingConnections = async () => {
+    try {
+      console.log('Checking for existing Judge.me connection...');
+      const response = await fetch('/api/tokens/judge_me');
+      console.log('Judge.me API response status:', response.status);
+      
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Judge.me API response data:', data);
+        // Only mark as connected if we actually have a token and no error
+        if (data.hasToken === true && !data.error) {
+          console.log('Marking Judge.me as connected');
+          setIntegrations(prev => prev.map(integration => 
+            integration.id === 'judgeme' 
+              ? { ...integration, connected: true, actionLabel: 'Connected' }
+              : integration
+          ));
+        } else {
+          console.log('Judge.me not connected - hasToken:', data.hasToken, 'error:', data.error);
+        }
+      } else if (response.status === 404) {
+        // No token found, keep as not connected
+        console.log('No Judge.me token found (404)');
+      } else {
+        console.error('Error checking Judge.me token:', response.status);
+      }
+    } catch (error) {
+      console.error('Error checking existing connections:', error);
     }
-  ];
+  };
 
   // Coming soon integrations
   const comingSoonIntegrations: Integration[] = [
@@ -128,7 +179,7 @@ export function DataSources() {
     }
   ];
 
-  const connectedCount = mvpIntegrations.filter(i => i.connected).length;
+  const connectedCount = integrations.filter(i => i.connected).length;
   const hasConnections = connectedCount > 0;
 
   const handleOpenModal = (integration: Integration) => {
@@ -152,33 +203,134 @@ export function DataSources() {
 
     setSelectedIntegration(integration);
     setIsModalOpen(true);
-    setFormData({ apiKey: "", storeUrl: "" });
+    setFormData({ apiKey: "", storeUrl: "yourstore.myshopify.com" });
   };
 
   const handleCloseModal = () => {
     setSelectedIntegration(null);
     setIsModalOpen(false);
-    setFormData({ apiKey: "", storeUrl: "" });
+    setFormData({ apiKey: "", storeUrl: "yourstore.myshopify.com" });
   };
 
   const handleTestConnection = async () => {
-    setIsConnecting(true);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    setIsConnecting(false);
-    toast.success("Connection test successful!");
+    if (!formData.apiKey || !formData.storeUrl) {
+      toast.error("Please fill in both API key and store URL");
+      return;
+    }
+
+    setIsTesting(true);
+    try {
+      // Use the simple test endpoint for debugging
+      const testResponse = await fetch('/api/tokens/test-simple', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          apiToken: formData.apiKey,
+          storeUrl: formData.storeUrl,
+        }),
+      });
+
+      const testData = await testResponse.json();
+
+      if (testData.success) {
+        toast.success("Connection test successful!");
+        if (testData.reviewCount !== undefined) {
+          toast.success(`Found ${testData.reviewCount} reviews from ${testData.shopDomain}`);
+        }
+      } else {
+        toast.error(testData.error || "Connection test failed");
+      }
+    } catch (error) {
+      console.error('Error testing connection:', error);
+      toast.error("Failed to test connection. Please check your API credentials.");
+    } finally {
+      setIsTesting(false);
+    }
   };
 
   const handleSaveConnection = async () => {
-    if (!selectedIntegration) return;
+    if (!selectedIntegration || !formData.apiKey || !formData.storeUrl) return;
     
     setIsConnecting(true);
-    // Simulate saving
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    toast.success(`${selectedIntegration.title} connected successfully!`);
-    setIsConnecting(false);
-    handleCloseModal();
+    try {
+      // Normalize domain (strip protocol and trailing slash)
+      const normalizedDomain = formData.storeUrl.replace(/^https?:\/\//, '').replace(/\/$/, '');
+
+      // Store the token
+      const storeResponse = await fetch('/api/tokens/store', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          service: 'judge_me',
+          apiToken: formData.apiKey,
+          plainTextData: {
+            storeUrl: normalizedDomain,
+          },
+        }),
+      });
+
+      if (!storeResponse.ok) {
+        throw new Error('Failed to store API token');
+      }
+
+      // Test the connection using the simple GET-based checker
+      const testResponse = await fetch('/api/tokens/test-simple', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          apiToken: formData.apiKey,
+          storeUrl: normalizedDomain,
+          per_page: 1,
+          page: 1,
+          verified: true,
+        }),
+      });
+
+      const testData = await testResponse.json();
+
+      if (testData.success) {
+        // Sync initial reviews
+        const syncResponse = await fetch('/api/reviews/sync', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            limit: 50, // Start with a smaller batch
+          }),
+        });
+
+        const syncData = await syncResponse.json();
+
+        if (syncData.success) {
+          toast.success(`${selectedIntegration.title} connected successfully! Synced ${syncData.syncedCount} reviews.`);
+        } else {
+          toast.success(`${selectedIntegration.title} connected successfully! (Review sync will happen in the background)`);
+        }
+
+        // Update the integration status
+        setIntegrations(prev => prev.map(integration => 
+          integration.id === 'judgeme' 
+            ? { ...integration, connected: true, actionLabel: 'Connected' }
+            : integration
+        ));
+
+        // Keep the modal open so the user sees the card status update behind it
+      } else {
+        toast.error(testData.error || "Failed to connect");
+      }
+    } catch (error) {
+      console.error('Error saving connection:', error);
+      toast.error("Failed to save connection. Please try again.");
+    } finally {
+      setIsConnecting(false);
+    }
   };
 
   const IntegrationCard = ({ integration, disabled = false }: { integration: Integration; disabled?: boolean }) => (
@@ -248,7 +400,10 @@ export function DataSources() {
     </TooltipProvider>
   );
 
-  if (!hasConnections) {
+  // Always render the main integrations view instead of switching to a separate
+  // connected-management view. This prevents an abrupt redirect and lets the
+  // user see the integration card update from "Not Connected" to "Connected".
+  if (true) {
     return (
       <div className="p-8 max-w-6xl mx-auto">
         {/* Header */}
@@ -262,21 +417,32 @@ export function DataSources() {
                 Upload your customer reviews and support tickets to start discovering trends, uncover opportunities, and spot risks.
               </p>
             </div>
-            <Button
-              variant="outline"
-              className="text-primary border-primary hover:bg-primary/5 flex items-center gap-2"
-              onClick={() => setIsHowItWorksOpen(true)}
-            >
-              <ExternalLink className="w-4 h-4" />
-              How it works
-            </Button>
+            <div className="flex gap-2">
+              {/* Debug button - remove this later */}
+              <Button
+                variant="outline"
+                size="sm"
+                className="text-red-600 border-red-600 hover:bg-red-50"
+                onClick={resetConnections}
+              >
+                Reset Connections (Debug)
+              </Button>
+              <Button
+                variant="outline"
+                className="text-primary border-primary hover:bg-primary/5 flex items-center gap-2"
+                onClick={() => setIsHowItWorksOpen(true)}
+              >
+                <ExternalLink className="w-4 h-4" />
+                How it works
+              </Button>
+            </div>
           </div>
         </div>
 
         {/* Section 2 - Current Integrations (MVP) */}
         <div className="space-y-8 mb-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {mvpIntegrations.map((integration) => (
+            {integrations.map((integration) => (
               <IntegrationCard key={integration.id} integration={integration} />
             ))}
           </div>
@@ -333,29 +499,32 @@ export function DataSources() {
                   
                   <div className="space-y-2">
                     <Label htmlFor="storeUrl" className="font-mono text-mono-label uppercase tracking-wide text-text-secondary">
-                      Store URL
+                      Store Domain
                     </Label>
                     <Input
                       id="storeUrl"
-                      placeholder="https://yourstore.com"
+                      placeholder="yourstore.myshopify.com"
                       value={formData.storeUrl}
                       onChange={(e) => setFormData({ ...formData, storeUrl: e.target.value })}
                       className="bg-gray-50 border-border-subtle"
                     />
+                    <p className="text-xs text-text-secondary">
+                      Enter just the domain (e.g., yourstore.myshopify.com) without https://
+                    </p>
                   </div>
                   
                   <div className="flex gap-3">
                     <Button
                       onClick={handleTestConnection}
-                      disabled={isConnecting || !formData.apiKey || !formData.storeUrl}
+                      disabled={isTesting || isConnecting || !formData.apiKey || !formData.storeUrl}
                       variant="outline"
                       className="flex-1"
                     >
-                      {isConnecting ? "Testing..." : "Test Connection"}
+                      {isTesting ? "Testing..." : "Test Connection"}
                     </Button>
                     <Button
                       onClick={handleSaveConnection}
-                      disabled={isConnecting || !formData.apiKey || !formData.storeUrl}
+                      disabled={isTesting || isConnecting || !formData.apiKey || !formData.storeUrl}
                       className="flex-1 bg-primary hover:bg-primary-light text-white"
                     >
                       {isConnecting ? "Connecting..." : "Save & Connect"}

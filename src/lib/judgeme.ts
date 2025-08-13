@@ -15,6 +15,14 @@ export async function fetchJudgeMePage(params: {
   const text = await r.text();
   if (!r.ok) throw new Error(`Judge.me ${r.status}: ${text.slice(0,300)}`);
   const data = JSON.parse(text);
-  if (!Array.isArray(data)) throw new Error("Unexpected Judge.me response (expected array)");
+  
+  // Log the response for debugging
+  console.log(`Judge.me API response type: ${typeof data}`);
+  console.log(`Judge.me API response keys: ${Array.isArray(data) ? 'array' : Object.keys(data || {}).join(', ')}`);
+  console.log(`Judge.me API response preview: ${JSON.stringify(data).slice(0,200)}...`);
+  
+  if (!Array.isArray(data)) {
+    throw new Error(`Unexpected Judge.me response (expected array, got ${typeof data}): ${JSON.stringify(data).slice(0,300)}`);
+  }
   return data as unknown[];
 }

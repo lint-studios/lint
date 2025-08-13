@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs/server';
 import { prisma } from '@/lib/prisma';
-// Note: cryptoService removed - this endpoint needs to be rebuilt or mocked
+import { encryptAesGcmHex } from '@/lib/enc';
 
 export async function POST(request: NextRequest) {
   try {
@@ -24,12 +24,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Simple mock encryption (store as base64 for now)
-    const encryptedData = {
-      encryptedToken: Buffer.from(apiToken).toString('base64'),
-      iv: 'mock-iv',
-      tag: 'mock-tag'
-    };
+    // Real AES-GCM encryption
+    const encryptedData = encryptAesGcmHex(apiToken);
 
     // Store or update the token
     const tokenRecord = await prisma.apiToken.upsert({

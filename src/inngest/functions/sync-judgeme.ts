@@ -58,7 +58,12 @@ export const syncJudgeme = inngest.createFunction(
           createdAtRemote: new Date(r.created_at),
           updatedAtRemote: r.updated_at ? new Date(r.updated_at) : null,
           publishedAtRemote: r.published_at ? new Date(r.published_at) : null,
-          verified: (r.verified ?? r.verified_buyer) ?? null,
+          verified: (() => {
+            const verified = r.verified ?? r.verified_buyer;
+            if (verified === "verified" || verified === true) return true;
+            if (verified === "nothing" || verified === false || verified === null) return false;
+            return null; // unknown value
+          })(),
           helpful: 0, // Judge.me doesn't send this; keep your default
           source: "judgeme",
           productExternalId: r.product_external_id != null ? String(r.product_external_id) : null,

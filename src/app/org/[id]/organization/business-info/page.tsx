@@ -25,6 +25,7 @@ export default function BusinessInfoPage() {
   const params = useParams();
   const { organization, isLoaded } = useOrganization();
   const [loading, setLoading] = useState(false);
+  const [loadingData, setLoadingData] = useState(true);
   const [formData, setFormData] = useState<BusinessInfoForm>({
     name: "",
     siteUrl: "",
@@ -34,7 +35,7 @@ export default function BusinessInfoPage() {
     logoUrl: "",
   });
 
-  // Check if user has access to this organization
+  // Check if user has access to this organization and load existing business info
   useEffect(() => {
     if (isLoaded && organization) {
       if (organization.id !== params.id) {
@@ -43,12 +44,38 @@ export default function BusinessInfoPage() {
         return;
       }
 
-      // Load existing business info
+      // Load existing business info from Clerk
       setFormData(prev => ({
         ...prev,
         name: organization.name || "",
         logoUrl: organization.imageUrl || "",
       }));
+
+      // Load existing business info from database
+      const loadBusinessInfo = async () => {
+        try {
+          setLoadingData(true);
+          const response = await fetch(`/api/organizations/${params.id}`);
+          if (response.ok) {
+            const data = await response.json();
+            if (data.success && data.organization) {
+              setFormData(prev => ({
+                ...prev,
+                siteUrl: data.organization.siteUrl || "",
+                industry: data.organization.industry || "",
+                platform: data.organization.platform || "",
+                timezone: data.organization.timezone || "",
+              }));
+            }
+          }
+        } catch (error) {
+          console.error('Error loading business info:', error);
+        } finally {
+          setLoadingData(false);
+        }
+      };
+
+      loadBusinessInfo();
     }
   }, [isLoaded, organization, params.id]);
 
@@ -81,22 +108,45 @@ export default function BusinessInfoPage() {
   };
 
   const handleCancel = () => {
-    // Reset form to original values (keeping organization name from Clerk)
+    // Reset form to original values by reloading from database
     if (organization) {
-      setFormData(prev => ({
-        ...prev,
-        name: organization.name || "",
-        siteUrl: "",
-        industry: "",
-        platform: "",
-        timezone: "",
-      }));
+      const resetForm = async () => {
+        try {
+          const response = await fetch(`/api/organizations/${params.id}`);
+          if (response.ok) {
+            const data = await response.json();
+            if (data.success && data.organization) {
+              setFormData(prev => ({
+                ...prev,
+                name: organization.name || "",
+                siteUrl: data.organization.siteUrl || "",
+                industry: data.organization.industry || "",
+                platform: data.organization.platform || "",
+                timezone: data.organization.timezone || "",
+              }));
+            }
+          }
+        } catch (error) {
+          console.error('Error resetting form:', error);
+          // Fallback to clearing fields if API call fails
+          setFormData(prev => ({
+            ...prev,
+            name: organization.name || "",
+            siteUrl: "",
+            industry: "",
+            platform: "",
+            timezone: "",
+          }));
+        }
+      };
+      
+      resetForm();
     }
   };
 
 
 
-  if (!isLoaded) {
+  if (!isLoaded || loadingData) {
     return (
       <div className="p-6">
         <div className="animate-pulse">

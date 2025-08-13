@@ -1,0 +1,13 @@
+# Supabase Functions (Deno runtime)
+supabase/functions/**/*
+
+# Build output
+.next/
+out/
+build/
+
+# Dependencies
+node_modules/
+
+# Generated files
+*.d.ts

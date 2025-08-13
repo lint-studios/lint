@@ -1,0 +1,12 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "next/typescript"
+  ],
+  "ignorePatterns": [
+    "supabase/**/*",
+    ".next/**/*",
+    "out/**/*",
+    "node_modules/**/*"
+  ]
+}

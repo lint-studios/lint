@@ -4,6 +4,14 @@ const nextConfig = {
   trailingSlash: true,
   images: {
     unoptimized: true
+  },
+  // Exclude Supabase functions from TypeScript checking
+  typescript: {
+    ignoreBuildErrors: false,
+  },
+  eslint: {
+    ignoreDuringBuilds: false,
+    dirs: ['src', 'components', 'lib', 'utils'] // Only lint these directories
   }
 }
 

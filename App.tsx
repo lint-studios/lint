@@ -12,7 +12,7 @@ import { Toaster } from "./components/ui/sonner";
 import { Button } from "./components/ui/button";
 
 type AuthView = "signin" | "signup" | null;
-type DashboardPage = "home" | "settings" | "reports";
+type DashboardPage = "home" | "data-sources" | "reports";
 
 export default function App() {
   const [authView, setAuthView] = useState<AuthView>("signin");
@@ -63,7 +63,7 @@ export default function App() {
     switch (currentPage) {
       case "home":
         return <Dashboard />;
-      case "settings":
+      case "data-sources":
         return <Settings />;
       case "reports":
         return <Reports />;

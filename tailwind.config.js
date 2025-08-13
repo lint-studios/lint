@@ -6,6 +6,7 @@ module.exports = {
         /* map Figma tokens to utility color names used in your components */
         "surface-base": "var(--surface-base)",
         "surface-card": "var(--surface-card)",
+        "surface-hover": "var(--gray-100)",
         "text-primary": "var(--text-primary)",
         "text-secondary": "var(--text-secondary)",
         "border-subtle": "var(--border-subtle)",

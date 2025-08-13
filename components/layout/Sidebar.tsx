@@ -1,88 +1,129 @@
-import { Home, Settings, FileText, Bell, Users, CreditCard, Sparkles, ArrowUpRight } from "lucide-react";
+import { Home, Settings, FileText, Bell, Users, CreditCard, Building, Info, ChevronDown } from "lucide-react";
 import { Button } from "../ui/button";
-import { Card } from "../ui/card";
 import { cn } from "../ui/utils";
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useOrganization } from "@clerk/nextjs";
 
 interface SidebarProps {
-  currentPage: "home" | "settings" | "reports";
-  onPageChange: (page: "home" | "settings" | "reports") => void;
+  currentPage: "home" | "data-sources" | "reports";
+  onPageChange: (page: "home" | "data-sources" | "reports") => void;
 }
 
 export function Sidebar({ currentPage, onPageChange }: SidebarProps) {
-  const navigationItems: Array<{ id: "home" | "settings" | "reports"; label: string; icon: any; active: boolean }> = [
+  const pathname = usePathname();
+  const { organization } = useOrganization();
+  const [organizationExpanded, setOrganizationExpanded] = useState(false);
+
+  // Check if we're on an organization route
+  const isOnOrgRoute = pathname?.includes('/org/') && pathname?.includes('/organization/');
+  
+  // Auto-expand organization section when on org routes
+  useEffect(() => {
+    if (isOnOrgRoute) {
+      setOrganizationExpanded(true);
+    }
+  }, [isOnOrgRoute]);
+
+  const navigationItems: Array<{ id: "home" | "data-sources" | "reports"; label: string; icon: any; active: boolean }> = [
     { id: "home", label: "Home", icon: Home, active: true },
-    { id: "settings", label: "Settings / Data", icon: Settings, active: true },
+    { id: "data-sources", label: "Data Sources", icon: Settings, active: true },
     { id: "reports", label: "Reports", icon: FileText, active: true },
   ];
 
-  const reservedItems = [
-    { id: "notifications", label: "Notifications", icon: Bell, active: false },
-    { id: "team", label: "Team", icon: Users, active: false },
-    { id: "billing", label: "Billing", icon: CreditCard, active: false },
+  const organizationItems = [
+    { 
+      id: "business-info", 
+      label: "Business Info", 
+      icon: Info, 
+      href: organization ? `/org/${organization.id}/organization/business-info` : "#" 
+    },
+    { 
+      id: "members-settings", 
+      label: "Members & Settings", 
+      icon: Users, 
+      href: organization ? `/org/${organization.id}/organization/members-settings` : "#" 
+    },
+    { 
+      id: "billing", 
+      label: "Billing", 
+      icon: CreditCard, 
+      href: organization ? `/org/${organization.id}/organization/billing` : "#" 
+    },
   ];
 
+
+
   return (
-    <div className="w-60 bg-surface-card border-r border-border-subtle p-6 flex flex-col">
+    <div className="w-60 bg-surface-card border-r border-border-subtle p-6 flex flex-col h-screen">
       {/* Navigation */}
       <nav className="space-y-1">
-        {navigationItems.map((item) => (
-          <Button
-            key={item.id}
-            variant={currentPage === item.id ? "default" : "ghost"}
-            onClick={() => onPageChange(item.id)}
-            className={cn(
-              "w-full justify-start font-body",
-              currentPage === item.id ? "text-white" : "text-body-s"
-            )}
-          >
+        {navigationItems.map((item) => {
+          // Don't highlight main nav items when on organization routes
+          const isActive = !isOnOrgRoute && currentPage === item.id;
+          return (
+            <Button
+              key={item.id}
+              variant={isActive ? "default" : "ghost"}
+              onClick={() => onPageChange(item.id)}
+              className={cn(
+                "w-full justify-start font-body text-xs font-medium rounded-xl h-8",
+                isActive ? "bg-primary text-white shadow-sm" : "hover:bg-surface-hover text-text-secondary hover:text-text-primary"
+              )}
+            >
             <item.icon className="h-4 w-4" />
             <span className="ml-3">{item.label}</span>
           </Button>
-        ))}
+          );
+        })}
       </nav>
 
-      {/* Reserved Section */}
+      {/* Organization Section */}
       <div className="mt-8">
-        <div className="text-mono-label font-mono text-text-secondary mb-2 px-3">
-          RESERVED
-        </div>
-        <nav className="space-y-1">
-          {reservedItems.map((item) => (
-            <Button
-              key={item.id}
-              variant="ghost"
-              disabled
-              className="w-full justify-start text-body-s font-body opacity-50"
-            >
-              <item.icon className="h-4 w-4" />
-              <span className="ml-3">{item.label}</span>
-            </Button>
-          ))}
-        </nav>
+        <Button
+          variant="ghost"
+          onClick={() => setOrganizationExpanded(!organizationExpanded)}
+          className="w-full justify-between font-body text-xs font-medium hover:bg-surface-hover transition-colors duration-200 rounded-xl h-8"
+        >
+          <div className="flex items-center">
+            <Building className="h-4 w-4" />
+            <span className="ml-3">Organization</span>
+          </div>
+          <ChevronDown 
+            className={cn(
+              "h-4 w-4 transition-transform",
+              organizationExpanded ? "rotate-180" : ""
+            )} 
+          />
+        </Button>
+        
+        {organizationExpanded && (
+          <nav className="mt-1 ml-4 space-y-1">
+            {organizationItems.map((item) => {
+              const isActive = pathname?.includes(item.id);
+              return (
+                <Link key={item.id} href={item.href}>
+                  <Button
+                    variant={isActive ? "default" : "ghost"}
+                    className={cn(
+                      "w-full justify-start font-body text-xs font-medium rounded-xl h-8",
+                      isActive ? "bg-primary text-white shadow-sm" : "hover:bg-surface-hover text-text-secondary hover:text-text-primary"
+                    )}
+                  >
+                    <item.icon className="h-4 w-4" />
+                    <span className="ml-3">{item.label}</span>
+                  </Button>
+                </Link>
+              );
+            })}
+          </nav>
+        )}
       </div>
 
-      {/* Upgrade Card */}
-      <div className="mt-auto">
-        <Card className="p-4 bg-gradient-to-br from-primary/5 to-accent/5 border border-primary/10 rounded-xl">
-          <div className="flex items-start space-x-3">
-            <div className="w-8 h-8 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
-              <Sparkles className="h-4 w-4 text-primary" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <h4 className="text-body-s font-body font-semibold text-text-primary mb-1">
-                Upgrade for more insights
-              </h4>
-              <p className="text-mono-label font-mono text-text-secondary mb-3 leading-relaxed">
-                Get unlimited reports and advanced analytics
-              </p>
-              <Button size="sm" className="w-full bg-primary hover:bg-primary/90 text-white font-medium rounded-lg h-8">
-                Upgrade
-                <ArrowUpRight className="ml-1 h-3 w-3" />
-              </Button>
-            </div>
-          </div>
-        </Card>
-      </div>
+
+
+
     </div>
   );
 }

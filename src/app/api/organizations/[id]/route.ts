@@ -22,20 +22,35 @@ export async function PATCH(
     const { name, siteUrl, industry, platform, timezone, description } = await request.json();
     console.log('📋 Form data:', { name, siteUrl, industry, platform, timezone });
     
-    // TEMPORARY: Just return success without database operation
-    console.log('✅ Returning success without database operation');
+    // Update organization in database using upsert
+    console.log('💾 Updating organization in database...');
+    const updatedOrganization = await prisma.organization.upsert({
+      where: { id: params.id },
+      update: {
+        siteUrl: siteUrl || null,
+        industry: industry || null,
+        platform: platform || null,
+        timezone: timezone || null,
+        updatedAt: new Date(),
+      },
+      create: {
+        id: params.id,
+        name: name || 'Unnamed Organization',
+        siteUrl: siteUrl || null,
+        industry: industry || null,
+        platform: platform || null,
+        timezone: timezone || null,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }
+    });
+    
+    console.log('✅ Organization updated successfully in database');
     
     return NextResponse.json({ 
       success: true, 
-      message: 'API working - database operation skipped for testing',
-      organization: {
-        id: params.id,
-        name: name || 'Test Organization',
-        siteUrl,
-        industry,
-        platform,
-        timezone
-      }
+      message: 'Business information updated successfully',
+      organization: updatedOrganization
     });
   } catch (error) {
     console.error('💥 Organization update error:', error);
@@ -82,7 +97,7 @@ export async function GET(
       organization 
     });
   } catch (error) {
-    console.error('💥 Organization fetch error:', error);
+    console.error('�� Organization fetch error:', error);
     return NextResponse.json(
       { error: 'Internal server error' }, 
       { status: 500 }

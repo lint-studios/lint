@@ -97,15 +97,7 @@ export function DataSources() {
     console.log('DataSources component initialized - checking for existing connections');
   }, []);
 
-  // Reset function to clear any cached state
-  const resetConnections = () => {
-    setIntegrations(prev => prev.map(integration => ({
-      ...integration,
-      connected: false,
-      actionLabel: integration.id === 'judgeme' ? 'Connect' : integration.actionLabel
-    })));
-    console.log('Connections reset to false');
-  };
+
 
   // Check for existing connections without making API calls
   const checkExistingConnections = async () => {
@@ -418,15 +410,6 @@ export function DataSources() {
               </p>
             </div>
             <div className="flex gap-2">
-              {/* Debug button - remove this later */}
-              <Button
-                variant="outline"
-                size="sm"
-                className="text-red-600 border-red-600 hover:bg-red-50"
-                onClick={resetConnections}
-              >
-                Reset Connections (Debug)
-              </Button>
               <Button
                 variant="outline"
                 className="text-primary border-primary hover:bg-primary/5 flex items-center gap-2"

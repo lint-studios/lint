@@ -21,9 +21,57 @@ model Organization {
   createdAt   DateTime @default(now())
 
   // domain tables will reference organizationId
-  // reviews   Review[]
+  apiTokens ApiToken[]
+  reviews   Review[]
   // insights  Insight[]
   // reports   Report[]
 
   @@map("organizations")
+}
+
+model ApiToken {
+  id              String   @id @default(cuid())
+  organizationId  String
+  service         String
+  encryptedToken  String?
+  iv              String?
+  tag             String?
+  plainTextData   String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, service], name: "api_tokens_organizationId_service_key")
+  @@map("api_tokens")
+}
+
+model Review {
+  id                 String   @id @default(cuid())
+  organizationId     String
+  externalId         String
+  productId          String?
+  productTitle       String?
+  rating             Int
+  title              String?
+  body               String
+  reviewerName       String?
+  reviewerEmail      String?
+  createdAtRemote    DateTime
+  updatedAtRemote    DateTime?
+  publishedAtRemote  DateTime?
+  verified           Boolean?
+  helpful            Int      @default(0)
+  source             String   @default("judgeme")
+  productExternalId  String?
+  productHandle      String?
+  media              Json?
+  raw                Json?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  organization       Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, externalId, source], name: "reviews_organizationId_externalId_source_key")
+  @@map("reviews")
 }

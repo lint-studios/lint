@@ -8,7 +8,7 @@ import { prisma } from '@/lib/prisma';
 export async function getDecryptedToken(orgId: string, service: string): Promise<{ token: string; plainTextData: any }>{
   const tokenRecord = await prisma.apiToken.findUnique({
     where: {
-      organizationId_service: {
+      api_tokens_organizationId_service_key: {
         organizationId: orgId,
         service,
       },

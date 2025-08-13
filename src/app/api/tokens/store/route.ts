@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
     // Store or update the token
     const tokenRecord = await prisma.apiToken.upsert({
       where: {
-        organizationId_service: {
+        api_tokens_organizationId_service_key: {
           organizationId: orgId,
           service,
         },

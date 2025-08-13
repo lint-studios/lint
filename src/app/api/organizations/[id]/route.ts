@@ -22,30 +22,28 @@ export async function PATCH(
     const { name, siteUrl, industry, platform, timezone, description } = await request.json();
     console.log('📋 Form data:', { name, siteUrl, industry, platform, timezone });
     
-    console.log('🔍 Looking for organization in database...');
-    const organization = await prisma.organization.findUnique({
-      where: { id: params.id }
-    });
-    console.log('🏢 Found organization:', organization ? 'YES' : 'NO');
-
-    if (!organization) {
-      console.log('❌ Organization not found, returning 404');
-      return NextResponse.json({ error: 'Organization not found' }, { status: 404 });
-    }
-
-    console.log('💾 Updating organization...');
-    const updatedOrganization = await prisma.organization.update({
+    console.log('💾 Upserting organization...');
+    const updatedOrganization = await prisma.organization.upsert({
       where: { id: params.id },
-      data: {
-        name: name || organization.name,
+      update: {
         siteUrl: siteUrl || null,
         industry: industry || null,
         platform: platform || null,
         timezone: timezone || null,
         updatedAt: new Date(),
+      },
+      create: {
+        id: params.id,
+        name: name || 'Unnamed Organization',
+        siteUrl: siteUrl || null,
+        industry: industry || null,
+        platform: platform || null,
+        timezone: timezone || null,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       }
     });
-    console.log('✅ Organization updated successfully');
+    console.log('✅ Organization upserted successfully');
     
     return NextResponse.json({ 
       success: true, 
@@ -57,7 +55,8 @@ export async function PATCH(
     if (error instanceof Error) {
       console.error('🐛 Error details:', {
         message: error.message,
-        name: error.name
+        name: error.name,
+        stack: error.stack
       });
     }
     

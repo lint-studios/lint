@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAuth } from '@clerk/nextjs/server';
+import { auth } from '@clerk/nextjs/server';
 import { prisma } from '@/lib/prisma';
 
 export async function PATCH(
@@ -9,8 +9,8 @@ export async function PATCH(
   console.log('🔥 PATCH /api/organizations/[id] called with id:', params.id);
   
   try {
-    console.log('🔐 Getting auth from request...');
-    const { userId } = getAuth(request);
+    console.log('🔐 Getting auth...');
+    const { userId } = await auth();
     console.log('👤 User ID:', userId);
     
     if (!userId) {
@@ -62,7 +62,7 @@ export async function GET(
   console.log('🔥 GET /api/organizations/[id] called with id:', params.id);
   
   try {
-    const { userId } = getAuth(request);
+    const { userId } = await auth();
     console.log('👤 User ID:', userId);
     
     if (!userId) {

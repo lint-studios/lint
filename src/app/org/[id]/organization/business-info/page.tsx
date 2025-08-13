@@ -59,7 +59,7 @@ export default function BusinessInfoPage() {
     try {
       // Update organization via API (excluding name and logo which are managed by Clerk)
       const { name, logoUrl, ...updateData } = formData;
-      const response = await fetch(`/api/organizations/test`, {
+      const response = await fetch(`/api/organizations/${params.id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

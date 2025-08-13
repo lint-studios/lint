@@ -10,6 +10,11 @@ export default clerkMiddleware(async (auth, req) => {
     return;
   }
   
+  // Skip middleware for Inngest routes
+  if (req.nextUrl.pathname.startsWith('/api/inngest')) {
+    return;
+  }
+  
   // Skip middleware for test-db route
   if (req.nextUrl.pathname.startsWith('/api/test-db')) {
     return;

@@ -21,8 +21,12 @@ export async function fetchJudgeMePage(params: {
   console.log(`Judge.me API response keys: ${Array.isArray(data) ? 'array' : Object.keys(data || {}).join(', ')}`);
   console.log(`Judge.me API response preview: ${JSON.stringify(data).slice(0,200)}...`);
   
-  if (!Array.isArray(data)) {
-    throw new Error(`Unexpected Judge.me response (expected array, got ${typeof data}): ${JSON.stringify(data).slice(0,300)}`);
+  // Handle both array format (page 1) and object format (page 2+)
+  if (Array.isArray(data)) {
+    return data as unknown[];
+  } else if (data && typeof data === 'object' && Array.isArray(data.reviews)) {
+    return data.reviews as unknown[];
+  } else {
+    throw new Error(`Unexpected Judge.me response format: ${JSON.stringify(data).slice(0,300)}`);
   }
-  return data as unknown[];
 }

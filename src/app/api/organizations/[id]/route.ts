@@ -46,8 +46,19 @@ export async function PATCH(
     });
   } catch (error) {
     console.error('Organization update error:', error);
+    
+    // Check if it's a database connection error
+    if (error instanceof Error) {
+      if (error.message.includes('DATABASE_URL') || error.message.includes('connection')) {
+        return NextResponse.json(
+          { error: 'Database connection failed', details: 'Please check DATABASE_URL environment variable' }, 
+          { status: 500 }
+        );
+      }
+    }
+    
     return NextResponse.json(
-      { error: 'Internal server error' }, 
+      { error: 'Internal server error', details: error instanceof Error ? error.message : 'Unknown error' }, 
       { status: 500 }
     );
   }

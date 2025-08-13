@@ -6,28 +6,34 @@ export async function PATCH(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  console.log('🔥 PATCH /api/organizations/[id] called with id:', params.id);
+  
   try {
+    console.log('🔐 Getting auth from request...');
     const { userId } = getAuth(request);
+    console.log('👤 User ID:', userId);
     
     if (!userId) {
+      console.log('❌ No user ID found, returning 401');
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    console.log('📝 Parsing request body...');
     const { name, siteUrl, industry, platform, timezone, description } = await request.json();
+    console.log('📋 Form data:', { name, siteUrl, industry, platform, timezone });
     
-    // Validate that the user has access to this organization
-    // This would typically check if the user is a member of the organization
-    // For now, we'll just update if the organization exists
-    
+    console.log('🔍 Looking for organization in database...');
     const organization = await prisma.organization.findUnique({
       where: { id: params.id }
     });
+    console.log('🏢 Found organization:', organization ? 'YES' : 'NO');
 
     if (!organization) {
+      console.log('❌ Organization not found, returning 404');
       return NextResponse.json({ error: 'Organization not found' }, { status: 404 });
     }
 
-    // Update the organization
+    console.log('💾 Updating organization...');
     const updatedOrganization = await prisma.organization.update({
       where: { id: params.id },
       data: {
@@ -39,22 +45,20 @@ export async function PATCH(
         updatedAt: new Date(),
       }
     });
+    console.log('✅ Organization updated successfully');
     
     return NextResponse.json({ 
       success: true, 
       organization: updatedOrganization 
     });
   } catch (error) {
-    console.error('Organization update error:', error);
+    console.error('💥 Organization update error:', error);
     
-    // Check if it's a database connection error
     if (error instanceof Error) {
-      if (error.message.includes('DATABASE_URL') || error.message.includes('connection')) {
-        return NextResponse.json(
-          { error: 'Database connection failed', details: 'Please check DATABASE_URL environment variable' }, 
-          { status: 500 }
-        );
-      }
+      console.error('🐛 Error details:', {
+        message: error.message,
+        name: error.name
+      });
     }
     
     return NextResponse.json(
@@ -68,8 +72,11 @@ export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  console.log('🔥 GET /api/organizations/[id] called with id:', params.id);
+  
   try {
     const { userId } = getAuth(request);
+    console.log('👤 User ID:', userId);
     
     if (!userId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -88,7 +95,7 @@ export async function GET(
       organization 
     });
   } catch (error) {
-    console.error('Organization fetch error:', error);
+    console.error('💥 Organization fetch error:', error);
     return NextResponse.json(
       { error: 'Internal server error' }, 
       { status: 500 }

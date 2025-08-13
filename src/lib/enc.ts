@@ -1,4 +1,4 @@
-import { createDecipheriv, scryptSync } from "node:crypto";
+import { createDecipheriv, createCipheriv, scryptSync, randomBytes } from "node:crypto";
 
 function keyFromSecret(secret: string) {
   // Use the SAME derivation you used to encrypt tokens.
@@ -22,9 +22,9 @@ export function decryptAesGcmHex(encryptedHex: string, ivHex: string, tagHex: st
 
 export function encryptAesGcmHex(plaintext: string, secret?: string) {
   const key = keyFromSecret(secret ?? process.env.APP_ENC_KEY!);
-  const iv = require("crypto").randomBytes(16);
+  const iv = randomBytes(16);
   
-  const cipher = require("crypto").createCipheriv("aes-256-gcm", key, iv);
+  const cipher = createCipheriv("aes-256-gcm", key, iv);
   const encrypted = Buffer.concat([cipher.update(plaintext, "utf8"), cipher.final()]);
   const tag = cipher.getAuthTag();
 

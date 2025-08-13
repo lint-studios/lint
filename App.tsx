@@ -6,7 +6,7 @@ import { SignUp } from "./components/auth/SignUp";
 import { TopBar } from "./components/layout/TopBar";
 import { Sidebar } from "./components/layout/Sidebar";
 import { Dashboard } from "./components/dashboard/Dashboard";
-import { Settings } from "./components/dashboard/Settings";
+import { DataSources } from "./components/dashboard/DataSources";
 import { Reports } from "./components/dashboard/Reports";
 import { Toaster } from "./components/ui/sonner";
 import { Button } from "./components/ui/button";
@@ -64,7 +64,7 @@ export default function App() {
       case "home":
         return <Dashboard />;
       case "data-sources":
-        return <Settings />;
+        return <DataSources />;
       case "reports":
         return <Reports />;
       default:

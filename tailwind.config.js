@@ -12,6 +12,7 @@ module.exports = {
         "border-subtle": "var(--border-subtle)",
         brand: "var(--primary)",
         primary: "var(--primary)",
+        "primary-light": "var(--primary-light)",
         "primary-foreground": "#FFFFFF",
         secondary: "var(--secondary)",
         "secondary-foreground": "#FFFFFF",

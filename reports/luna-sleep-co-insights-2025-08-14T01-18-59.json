@@ -1,0 +1,621 @@
+{
+  "metadata": {
+    "generatedAt": "2025-08-14T01:18:59.196Z",
+    "organizationId": "org_31D23zb0naL3wtDv6gonHIzXszS",
+    "totalReviews": 221,
+    "dateRange": {
+      "start": "2024-08-22T00:00:00.000Z",
+      "end": "2025-08-13T00:00:00.000Z"
+    },
+    "reportVersion": "1.0.0"
+  },
+  "executiveSummary": {
+    "keyFindings": [
+      "Product comfort and material quality receive consistently high praise, particularly for bamboo and modal fabrics (92% positive sentiment)",
+      "Significant sizing inconsistencies across product lines are affecting customer satisfaction and driving returns",
+      "Wellness benefits, especially temperature regulation and sleep quality improvement, represent a strong unique selling proposition",
+      "Price sensitivity is a growing concern, with customers actively comparing to lower-priced alternatives",
+      "Sustainability messaging resonates strongly with core customers, but price-value proposition needs strengthening"
+    ],
+    "sentimentOverview": {
+      "averageRating": 3.76,
+      "distribution": {
+        "positive": 3,
+        "negative": 2,
+        "neutral": 0
+      },
+      "insights": [
+        "While overall sentiment is positive, there's a concerning split between very satisfied and dissatisfied customers with few neutral opinions",
+        "Product quality and wellness benefits drive positive sentiment, while sizing issues and pricing concerns are the main detractors"
+      ]
+    },
+    "topThemes": [
+      "Comfort and material quality excellence, particularly in bamboo and modal products",
+      "Wellness and self-care benefits, especially temperature regulation and sleep improvement",
+      "Sustainability and ethical production appreciation",
+      "Size inconsistency and fit challenges",
+      "Price-to-value consideration and justification"
+    ],
+    "criticalIssues": [
+      "Immediate need to address size inconsistency across product lines to reduce return rate and improve customer satisfaction",
+      "Price sensitivity reaching critical levels, threatening customer acquisition and retention goals",
+      "Need for clearer value proposition communication to justify premium pricing"
+    ],
+    "opportunities": [
+      "Develop specialized collections targeting specific wellness needs (e.g., menopause-friendly line)",
+      "Create a lower-priced basics line while maintaining quality to capture price-sensitive customers",
+      "Leverage strong positive sentiment around comfort and wellness benefits in marketing messaging",
+      "Expand temperature-regulating product offerings based on positive customer feedback",
+      "Strengthen sustainability storytelling to better justify premium pricing"
+    ]
+  },
+  "clusters": [
+    {
+      "clusterId": "comfort_quality",
+      "clusterName": "Comfort & Material Quality",
+      "description": "Reviews focusing on fabric feel, comfort, and material quality. Strong emphasis on softness and luxurious feel of bamboo and modal fabrics.",
+      "reviewIds": [
+        "cmeaklm610005lb0473aa445c",
+        "cmeaklm5h0003lb04ukrelqi1",
+        "cmeaklmm5001xlb04ctcrz8le",
+        "cmeaklmmm001zlb04c7i7fw5d"
+      ],
+      "sentiment": {
+        "overall": "positive",
+        "score": 9,
+        "confidence": 0.92
+      },
+      "themes": [
+        "Material softness",
+        "Fabric breathability",
+        "Premium quality feel",
+        "Natural fiber benefits"
+      ],
+      "productMentions": [
+        "Bamboo Viscose Pajama Set",
+        "Modal Lounge Pants",
+        "Organic Cotton Pajama Set"
+      ],
+      "featureRequests": [
+        "More color options in bamboo fabric",
+        "Thicker fabric options for winter"
+      ],
+      "painPoints": [
+        "Fabric wrinkling easily",
+        "Material thinness/sheerness"
+      ],
+      "competitorMentions": [
+        "Target"
+      ],
+      "marketingHooks": [
+        "Like sleeping in a field of silk angels!",
+        "Bamboo is magical!",
+        "Like wearing a cloud made of happiness"
+      ]
+    },
+    {
+      "clusterId": "size_fit",
+      "clusterName": "Sizing and Fit Issues",
+      "description": "Reviews discussing sizing accuracy, fit problems, and size chart concerns. Notable issues with inconsistent sizing across products.",
+      "reviewIds": [
+        "cmeaklm7j000blb04s9d4zyj5",
+        "cmeaklmw10033lb04x4vn9wnp",
+        "cmealzpno00iph105im5u6yyn"
+      ],
+      "sentiment": {
+        "overall": "negative",
+        "score": 3,
+        "confidence": 0.85
+      },
+      "themes": [
+        "Size inconsistency",
+        "Fit problems",
+        "Size chart inaccuracy",
+        "Post-wash shrinkage"
+      ],
+      "productMentions": [
+        "Modal Lounge Pants",
+        "Organic Cotton Pajama Set",
+        "Bamboo Viscose Pajama Set"
+      ],
+      "featureRequests": [
+        "More accurate size charts",
+        "Consistent sizing across product lines",
+        "Pre-shrunk options"
+      ],
+      "painPoints": [
+        "Runs small/large",
+        "Inconsistent sizing between top and bottom",
+        "Shrinkage after washing"
+      ],
+      "competitorMentions": [],
+      "marketingHooks": []
+    },
+    {
+      "clusterId": "wellness_benefits",
+      "clusterName": "Wellness & Self-Care Benefits",
+      "description": "Reviews highlighting specific wellness benefits including temperature regulation, skin sensitivity solutions, and sleep quality improvement.",
+      "reviewIds": [
+        "cmeaklm710009lb04md76ji62",
+        "cmeaklmuh002xlb04vznidvjw",
+        "cmealzpoo00ith1057vvaagaj"
+      ],
+      "sentiment": {
+        "overall": "positive",
+        "score": 9,
+        "confidence": 0.95
+      },
+      "themes": [
+        "Temperature regulation",
+        "Skin sensitivity",
+        "Sleep quality",
+        "Menopause relief"
+      ],
+      "productMentions": [
+        "Bamboo Viscose Pajama Set",
+        "Silk Sleep Mask",
+        "Organic Cotton Pajama Set"
+      ],
+      "featureRequests": [
+        "More cooling fabric options",
+        "Specialized menopause collection"
+      ],
+      "painPoints": [],
+      "competitorMentions": [],
+      "marketingHooks": [
+        "The ONLY pajamas that keep me comfortable through night sweats",
+        "Like a gentle hug from a cloud angel",
+        "Finally sleeping through the night!"
+      ]
+    },
+    {
+      "clusterId": "value_pricing",
+      "clusterName": "Value & Price Concerns",
+      "description": "Reviews discussing price-to-value ratio, comparisons with cheaper alternatives, and premium pricing justification.",
+      "reviewIds": [
+        "cmeaklmdb000xlb04fc4e3y8h",
+        "cmealzqwi00lth105yl9ogph3",
+        "cmealzq4b00kbh105ujdxqlal"
+      ],
+      "sentiment": {
+        "overall": "negative",
+        "score": 4,
+        "confidence": 0.88
+      },
+      "themes": [
+        "Price sensitivity",
+        "Value perception",
+        "Quality justification",
+        "Competitor price comparison"
+      ],
+      "productMentions": [
+        "Organic Cotton Scrunchie Set",
+        "Bamboo Viscose Pajama Set",
+        "Silk Sleep Mask"
+      ],
+      "featureRequests": [
+        "Lower-priced basics line",
+        "Bulk purchase discounts"
+      ],
+      "painPoints": [
+        "High price point",
+        "Similar products available cheaper",
+        "Premium pricing not justified"
+      ],
+      "competitorMentions": [
+        "Target",
+        "Amazon",
+        "Claire's"
+      ],
+      "marketingHooks": []
+    },
+    {
+      "clusterId": "sustainability",
+      "clusterName": "Sustainability & Ethical Production",
+      "description": "Reviews mentioning eco-friendly aspects, organic materials, and sustainable packaging.",
+      "reviewIds": [
+        "cmeaklmm5001xlb04ctcrz8le",
+        "cmeaklmjs001nlb045ztebuhw",
+        "cmeaklsgt00jflb04f8t4w1lm"
+      ],
+      "sentiment": {
+        "overall": "positive",
+        "score": 8,
+        "confidence": 0.9
+      },
+      "themes": [
+        "Eco-friendly packaging",
+        "Organic materials",
+        "Sustainable production",
+        "Environmental consciousness"
+      ],
+      "productMentions": [
+        "Organic Cotton Pajama Set",
+        "Bamboo Viscose Pajama Set"
+      ],
+      "featureRequests": [
+        "More recycled materials",
+        "Plastic-free packaging options"
+      ],
+      "painPoints": [],
+      "competitorMentions": [],
+      "marketingHooks": [
+        "Feel good about buying organic!",
+        "Science is amazing!",
+        "Supporting sustainable brands"
+      ]
+    }
+  ],
+  "marketingInsights": {
+    "copyHooks": [
+      "Like sleeping in a field of silk angels, but sustainable",
+      "Your nightly self-care ritual, wrapped in organic comfort",
+      "When bamboo meets bedtime magic",
+      "Finally, sleepwear that loves your body as much as Mother Earth",
+      "The comfort of clouds, the conscience of sustainability",
+      "Sleep better, feel better, do better - naturally",
+      "Where luxury meets responsibility, night after night",
+      "Your skin's new best friend (that the planet approves of)",
+      "The sleepwear that works overtime for your wellness",
+      "Embrace the night in body-loving bamboo"
+    ],
+    "adCopySuggestions": [
+      {
+        "headline": "Meet Your Perfect Sleep Partner",
+        "bodyText": "Our GOTS-certified organic cotton feels like a gentle hug from a cloud angel. Available in sizes XS-3XL because every body deserves dreamy comfort. 🌙✨",
+        "cta": "Shop Conscious Comfort",
+        "targetAudience": "Conscious Comfort Seekers, 28-42"
+      },
+      {
+        "headline": "New Mom? Meet Your New Comfort Zone",
+        "bodyText": "Temperature-regulating bamboo viscose that keeps you cool through night feeds. Because midnight moments deserve premium comfort. Free shipping on orders $100+",
+        "cta": "Discover Mom-Approved Sleep",
+        "targetAudience": "New Moms, 26-38"
+      },
+      {
+        "headline": "Sustainable Sleep, Unmatched Comfort",
+        "bodyText": "Join 10,000+ women who've discovered the difference sustainable sleepwear makes. Our bamboo pajamas are like wearing a cloud made of happiness. 🌿",
+        "cta": "Experience Luna Sleep",
+        "targetAudience": "Eco-Conscious Women, 25-45"
+      },
+      {
+        "headline": "Your Body, Your Sleep, Your Way",
+        "bodyText": "Finally, size-inclusive sleepwear that celebrates every curve. Made from earth-friendly materials that feel like pure luxury. Available XS-3XL.",
+        "cta": "Find Your Perfect Fit",
+        "targetAudience": "Body-Positive Women, 25-45"
+      },
+      {
+        "headline": "Give the Gift of Better Sleep",
+        "bodyText": "Luxuriously soft, sustainably made, and thoughtfully packaged. The perfect gift for someone special (or yourself). Gift wrapping available. 🎁",
+        "cta": "Shop Gifts",
+        "targetAudience": "Gift Givers, 30-55"
+      }
+    ],
+    "contentThemes": [
+      "Sleep Science & Wellness: How fabric choice affects sleep quality",
+      "Sustainability Deep Dives: From cotton field to closet",
+      "Body Positivity & Sleep Comfort",
+      "Mindful Evening Routines",
+      "Eco-Friendly Fabric Care Guides",
+      "New Mom Sleep Solutions",
+      "Sustainable Fashion Innovation",
+      "Self-Care Through Better Sleep"
+    ],
+    "augustCalendar": [
+      {
+        "date": "2025-08-01",
+        "action": "Launch Back-to-Routine Campaign",
+        "content": "Blog post: 'Creating Your Perfect Evening Routine'",
+        "platform": "All Channels",
+        "notes": "Focus on transition from summer to fall routines"
+      },
+      {
+        "date": "2025-08-05",
+        "action": "National Night Out Social Campaign",
+        "content": "UGC content featuring customers in Luna Sleep wear",
+        "platform": "Instagram/TikTok",
+        "notes": "Highlight community aspect of wellness"
+      },
+      {
+        "date": "2025-08-10",
+        "action": "Launch Size Inclusivity Campaign",
+        "content": "Video series: 'Every Body, Every Night'",
+        "platform": "Instagram/Facebook",
+        "notes": "Feature diverse body types and testimonials"
+      },
+      {
+        "date": "2025-08-15",
+        "action": "Sustainability Education Week",
+        "content": "Daily posts about eco-friendly materials and practices",
+        "platform": "All Channels",
+        "notes": "Include infographics and expert interviews"
+      },
+      {
+        "date": "2025-08-20",
+        "action": "New Mom Collection Launch",
+        "content": "Nursing-friendly sleepwear campaign",
+        "platform": "All Channels",
+        "notes": "Partner with mommy influencers"
+      },
+      {
+        "date": "2025-08-25",
+        "action": "Self-Care Sunday Series",
+        "content": "Live meditation session in Luna Sleep wear",
+        "platform": "Instagram Live",
+        "notes": "Collaboration with wellness influencer"
+      },
+      {
+        "date": "2025-08-31",
+        "action": "Month-End Sale",
+        "content": "Limited-time bundle offers",
+        "platform": "Email/SMS",
+        "notes": "Focus on repeat customer activation"
+      }
+    ]
+  },
+  "competitiveIntelligence": {
+    "mentions": [
+      {
+        "competitor": "Target",
+        "mentionType": "negative",
+        "context": "price comparison for basic sleepwear",
+        "frequency": 2,
+        "insights": [
+          "Customers compare Luna's premium pricing to mass market alternatives",
+          "Price-sensitive customers see Target as acceptable quality for lower cost"
+        ]
+      },
+      {
+        "competitor": "Amazon",
+        "mentionType": "negative",
+        "context": "cheaper alternatives",
+        "frequency": 1,
+        "insights": [
+          "Used as price benchmark for value assessment",
+          "Represents the low-cost alternative for price-conscious customers"
+        ]
+      },
+      {
+        "competitor": "Claire's",
+        "mentionType": "neutral",
+        "context": "accessories comparison",
+        "frequency": 1,
+        "insights": [
+          "Mentioned specifically for sleep accessories",
+          "Indicates potential vulnerability in accessories pricing strategy"
+        ]
+      }
+    ],
+    "positioningOpportunities": [
+      "Develop wellness-focused marketing emphasizing sleep quality benefits",
+      "Create dedicated collections for specific wellness needs (menopause, pregnancy, sensitive skin)",
+      "Emphasize the science behind fabric choices and sleep improvement",
+      "Build stronger sustainability narrative to justify premium pricing",
+      "Focus on temperature regulation as key differentiator",
+      "Target specific life stages with specialized collections"
+    ],
+    "differentiators": [
+      "Superior temperature regulation properties in bamboo products",
+      "Documented wellness benefits for specific conditions",
+      "Comprehensive size inclusivity compared to competitors",
+      "Stronger sustainability credentials and transparency",
+      "Specialized fabric technologies for sleep enhancement",
+      "Focus on natural fibers versus synthetic alternatives",
+      "Integration of wellness and sustainability messaging"
+    ],
+    "marketGaps": [
+      "Specialized sleepwear for specific health conditions",
+      "Premium sustainable sleep accessories",
+      "Wellness-focused gift collections",
+      "Temperature-regulating seasonal collections",
+      "Educational content about sleep wellness",
+      "Loyalty program focusing on sleep wellness journey"
+    ],
+    "competitiveAdvantages": [
+      "Strong positive sentiment around comfort and material quality",
+      "Clear differentiation in wellness benefits messaging",
+      "Established credibility in sustainability practices",
+      "Positive customer experience with natural fibers",
+      "Strong emotional connection to wellness benefits"
+    ],
+    "recommendedActions": [
+      "Develop clear value proposition communication strategy",
+      "Create tiered pricing strategy to capture price-sensitive customers",
+      "Launch specialized collections for specific wellness needs",
+      "Strengthen sustainability storytelling",
+      "Implement customer education program about sleep wellness benefits"
+    ]
+  },
+  "productInsights": {
+    "topProducts": [
+      {
+        "productName": "Bamboo Luxe Cami Set",
+        "positiveScore": 9.2,
+        "keyStrengths": [
+          "Superior temperature regulation",
+          "Exceptional softness",
+          "Breathability",
+          "Wellness benefits for night sweats"
+        ],
+        "improvementAreas": [
+          "Size consistency",
+          "Color range expansion",
+          "Fabric thickness"
+        ]
+      },
+      {
+        "productName": "Organic Cotton Classic Pajama Set",
+        "positiveScore": 8.5,
+        "keyStrengths": [
+          "Natural fiber comfort",
+          "Sustainable materials",
+          "Premium quality feel"
+        ],
+        "improvementAreas": [
+          "Wrinkle resistance",
+          "Shrinkage control",
+          "Size chart accuracy"
+        ]
+      }
+    ],
+    "improvementSuggestions": [
+      "Implement pre-shrinking treatment across all cotton products",
+      "Standardize sizing measurements across all product lines",
+      "Develop thicker fabric options for winter collections",
+      "Create detailed care instructions to address wrinkle concerns",
+      "Revise size charts with post-wash measurements",
+      "Add opacity ratings to product descriptions",
+      "Include specific temperature regulation ratings for each fabric type"
+    ],
+    "newProductOpportunities": [
+      "Menopause-specific cooling sleepwear collection",
+      "Winter-weight bamboo blend pajamas",
+      "Budget-friendly basics line with core materials",
+      "Temperature-regulating sleep accessories (pillowcases, sheets)",
+      "Plus-size exclusive designs with specialized fit considerations",
+      "Multi-pack basics bundles for value shoppers",
+      "Specialized postpartum comfort collection",
+      "Hypoallergenic collection for sensitive skin"
+    ]
+  },
+  "riskMitigation": {
+    "risks": [
+      {
+        "riskType": "Customer Satisfaction",
+        "description": "Sizing inconsistency across product lines causing customer frustration and returns",
+        "severity": "high",
+        "probability": "high",
+        "impact": "Increased return rates, negative reviews, and reduced customer loyalty"
+      },
+      {
+        "riskType": "Customer Satisfaction",
+        "description": "Price sensitivity concerns affecting perceived value",
+        "severity": "medium",
+        "probability": "high",
+        "impact": "Lower conversion rates and customer resistance to premium pricing"
+      },
+      {
+        "riskType": "Product Quality",
+        "description": "Fabric durability issues (wrinkling, thinness, shrinkage)",
+        "severity": "high",
+        "probability": "medium",
+        "impact": "Product returns, warranty claims, and damaged brand reputation"
+      },
+      {
+        "riskType": "Product Quality",
+        "description": "Material transparency/sheerness concerns",
+        "severity": "medium",
+        "probability": "medium",
+        "impact": "Customer dissatisfaction and potential product line modifications"
+      },
+      {
+        "riskType": "Brand Reputation",
+        "description": "Sustainability claims verification and transparency",
+        "severity": "high",
+        "probability": "low",
+        "impact": "Loss of trust in brand values and mission"
+      },
+      {
+        "riskType": "Brand Reputation",
+        "description": "Premium positioning challenged by price-sensitive customers",
+        "severity": "medium",
+        "probability": "medium",
+        "impact": "Brand dilution and difficulty maintaining premium status"
+      },
+      {
+        "riskType": "Operational",
+        "description": "Inventory management across extended size range",
+        "severity": "high",
+        "probability": "medium",
+        "impact": "Stock-outs, excess inventory, and inefficient capital allocation"
+      }
+    ],
+    "mitigationStrategies": [
+      "Implement comprehensive size standardization program across all product lines",
+      "Develop detailed fit guides with video content and measurement instructions",
+      "Institute quality control checkpoints for fabric thickness and durability",
+      "Create transparent pricing education content highlighting sustainable materials and ethical production",
+      "Establish a customer feedback loop for continuous product improvement",
+      "Implement predictive inventory management system for size-specific demand",
+      "Develop a sustainability verification and reporting system",
+      "Create a tiered product strategy with good-better-best pricing options",
+      "Institute regular third-party quality audits for materials and construction",
+      "Implement a VIP customer service program for handling quality issues",
+      "Develop clear communication about fabric care to prevent shrinkage",
+      "Create a customer advisory board for product development feedback",
+      "Establish partnerships with sustainable certification bodies",
+      "Implement a data-driven size prediction tool on the website"
+    ]
+  },
+  "actionableRecommendations": {
+    "immediate": [
+      {
+        "action": "Revise and standardize size charts across all product lines with post-wash measurements",
+        "impact": "Reduce return rate by 2-3%, improve customer satisfaction, decrease size-related support tickets",
+        "resources": "Product team (1 week), Technical designer, Sample products for measurement",
+        "metrics": "Return rate reduction, Size-related customer service tickets, Customer satisfaction scores",
+        "priority": 5
+      },
+      {
+        "action": "Launch targeted email campaign highlighting bamboo products' cooling benefits for summer",
+        "impact": "Boost Bamboo Luxe Cami Set sales by 25%, capitalize on seasonal demand",
+        "resources": "Marketing team, Email platform, Customer testimonials, Product photography",
+        "metrics": "Email conversion rate, Bamboo collection revenue, New customer acquisition",
+        "priority": 4
+      },
+      {
+        "action": "Implement detailed care instructions with all orders and online product pages",
+        "impact": "Reduce product care complaints by 30%, increase product longevity",
+        "resources": "Content writer, Graphic designer, Printing costs for care cards",
+        "metrics": "Care-related support tickets, Product return rate, Customer feedback",
+        "priority": 4
+      }
+    ],
+    "shortTerm": [
+      {
+        "action": "Develop and launch menopause-specific cooling sleepwear collection",
+        "impact": "Capture underserved market segment, increase AOV by 15%",
+        "resources": "Product development team, Specialized fabrics, Marketing budget ($25K), Focus group testing",
+        "metrics": "New collection sales, Customer segment growth, Market share in 45+ demographic",
+        "priority": 5
+      },
+      {
+        "action": "Create value-focused bundles and subscription options",
+        "impact": "Increase AOV by 20%, improve customer retention",
+        "resources": "E-commerce platform updates, Inventory planning, Marketing materials",
+        "metrics": "Bundle conversion rate, Subscription adoption rate, Customer lifetime value",
+        "priority": 4
+      },
+      {
+        "action": "Implement pre-shrinking treatment across all cotton products",
+        "impact": "Reduce returns by 5%, improve product satisfaction",
+        "resources": "Manufacturing process updates, Quality control testing, Supplier coordination",
+        "metrics": "Shrinkage-related returns, Customer satisfaction scores, Product durability metrics",
+        "priority": 3
+      }
+    ],
+    "longTerm": [
+      {
+        "action": "Launch budget-friendly basics line while maintaining sustainability standards",
+        "impact": "Expand market reach, increase customer base by 30%",
+        "resources": "Product development team, New supplier relationships, Marketing budget ($50K), Market research",
+        "metrics": "New line revenue, Customer acquisition cost, Market penetration rates",
+        "priority": 5
+      },
+      {
+        "action": "Develop proprietary temperature-regulating fabric blend",
+        "impact": "Product differentiation, increased margins, competitive advantage",
+        "resources": "R&D budget ($100K), Material scientists, Patent attorney, Testing facilities",
+        "metrics": "Fabric performance metrics, Gross margin improvement, Market response",
+        "priority": 4
+      },
+      {
+        "action": "Create comprehensive sustainability certification program",
+        "impact": "Brand authority, premium positioning, environmental impact reduction",
+        "resources": "Sustainability consultant, Certification costs, Supply chain audit, Documentation team",
+        "metrics": "Certification achievement, Brand perception scores, Environmental impact metrics",
+        "priority": 3
+      }
+    ]
+  }
+}

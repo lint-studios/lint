@@ -1,0 +1,6 @@
+# Reports directory
+Generated customer insight reports will be saved here.
+
+Files created:
+- {company-name}-insights-YYYY-MM-DD-HH-mm-ss.md (Markdown report)
+- {company-name}-insights-YYYY-MM-DD-HH-mm-ss.json (JSON data)

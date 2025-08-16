@@ -7,57 +7,52 @@ import { MoreHorizontal, Download, RotateCcw, Eye, Calendar, Filter, ArrowLeft, 
 
 // Component: ReportCard for list view
 function ReportCard({ report, onView }: { report: any; onView: (id: string) => void }) {
-  const statusStyles: Record<string, string> = {
-    Ready: "bg-accent text-white",
-    Running: "bg-secondary text-white", 
-    Scheduled: "bg-gray-200 text-gray-700"
+  const statusStyles = {
+    Ready: "bg-accent text-white shadow-sm",
+    Running: "bg-secondary text-white shadow-sm", 
+    Scheduled: "bg-neutral text-gray-700 shadow-sm"
+  };
+
+  const cardBorderStyles = {
+    Ready: "border-accent/20 hover:border-accent/40",
+    Running: "border-secondary/20 hover:border-secondary/40",
+    Scheduled: "border-neutral/20 hover:border-neutral/40"
   };
 
   return (
-    <Card className="p-6 bg-surface-card border border-border-subtle rounded-2xl shadow-sm hover:shadow-md transition-shadow">
-      <div className="flex items-start justify-between mb-4">
+    <Card className={`p-6 bg-surface-card border-2 ${cardBorderStyles[report.status]} rounded-2xl shadow-sm hover:shadow-lg transition-all hover:scale-[1.02] duration-200`}>
+      <div className="flex items-start justify-between mb-6">
         <div className="flex-1">
           <div className="flex items-center space-x-3 mb-2">
             <h3 className="text-heading-s font-display font-semibold text-text-primary">
               {report.title}
             </h3>
-            <Badge className={`text-mono-label font-mono px-2 py-1 rounded-lg ${statusStyles[report.status]}`}>
+            <Badge className={`text-mono-label font-mono px-3 py-1.5 rounded-lg font-medium ${statusStyles[report.status]}`}>
               {report.status}
             </Badge>
           </div>
-          <p className="text-body-s font-body text-text-secondary mb-2">
+          <p className="text-body-s font-body text-text-secondary mb-2 font-medium">
             {report.subtitle}
           </p>
-          <p className="text-mono-label font-mono text-text-secondary uppercase tracking-wide">
+          <p className="text-mono-label font-mono text-text-secondary uppercase tracking-wider">
             {report.date}
           </p>
         </div>
         
-        <Button variant="ghost" size="sm" className="p-2">
+        <Button variant="ghost" size="sm" className="p-2 hover:bg-gray-100 rounded-lg">
           <MoreHorizontal className="h-4 w-4" />
         </Button>
-      </div>
-      
-      <div className="space-y-2 mb-6">
-        {report.highlights.map((highlight: string, index: number) => (
-          <div key={index} className="flex items-start space-x-2">
-            <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-            <p className="text-body-s font-body text-text-secondary">
-              {highlight}
-            </p>
-          </div>
-        ))}
       </div>
       
       <div className="flex items-center space-x-3">
         <Button 
           onClick={() => onView(report.id)}
-          className="flex-1 bg-primary hover:bg-primary/90 text-white font-medium rounded-xl"
+          className="flex-1 gradient-view-report text-white font-medium rounded-xl shadow-sm hover:shadow-md transition-all"
         >
           <Eye className="mr-2 h-4 w-4" />
           View report
         </Button>
-        <Button variant="outline" className="font-medium rounded-xl">
+        <Button variant="outline" className="font-medium rounded-xl border-2 hover:bg-gray-50 transition-colors">
           <Download className="mr-2 h-4 w-4" />
           PDF
         </Button>
@@ -352,40 +347,33 @@ export function Reports() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-display-l font-display font-semibold text-text-primary mb-2">
+          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-normal leading-[0.9] tracking-[-0.02em] text-black mb-6">
             Reports
           </h1>
           <p className="text-body-m font-body text-text-secondary">
             Customer insight reports and analytics
           </p>
         </div>
-        <Button className="bg-primary hover:bg-primary/90 text-white font-medium rounded-xl shadow-sm hover:shadow-md transition-all">
+        <Button className="gradient-lint text-white font-medium rounded-xl shadow-sm hover:shadow-md transition-all px-6 py-3">
           <Download className="mr-2 h-4 w-4" />
           Generate new report
         </Button>
       </div>
 
       {/* Filters */}
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-4 p-6 bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl border border-gray-200">
+        <div className="flex items-center space-x-2">
+          <Filter className="h-4 w-4 text-primary" />
+          <span className="text-body-s font-mono text-text-secondary uppercase tracking-wider">Filters</span>
+        </div>
         <Select>
-          <SelectTrigger className="w-48 font-body text-body-m rounded-xl">
+          <SelectTrigger className="w-48 font-body text-body-m rounded-xl border-2 border-gray-300 hover:border-primary transition-colors bg-white shadow-sm">
             <SelectValue placeholder="All months" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="november">November 2024</SelectItem>
             <SelectItem value="october">October 2024</SelectItem>
             <SelectItem value="september">September 2024</SelectItem>
-          </SelectContent>
-        </Select>
-        
-        <Select>
-          <SelectTrigger className="w-48 font-body text-body-m rounded-xl">
-            <SelectValue placeholder="All statuses" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="ready">Ready</SelectItem>
-            <SelectItem value="running">Running</SelectItem>
-            <SelectItem value="scheduled">Scheduled</SelectItem>
           </SelectContent>
         </Select>
       </div>

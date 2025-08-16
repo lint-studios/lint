@@ -270,6 +270,16 @@
   animation: gradientFlow 8s ease-in-out infinite;
 }
 
+/* Report view button gradient */
+.gradient-view-report {
+  background: linear-gradient(135deg, #10B981 0%, #34D399 25%, #C4B5FD 50%, #F97316 75%, #FB923C 100%);
+  position: relative;
+}
+
+.gradient-view-report:hover {
+  background: linear-gradient(135deg, #059669 0%, #10B981 25%, #A78BFA 50%, #EA580C 75%, #F97316 100%);
+}
+
 /* Gradient animations */
 @keyframes gradientFlow {
   0%, 100% {

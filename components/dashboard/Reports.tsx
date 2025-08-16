@@ -32,14 +32,14 @@ function ReportCard({ report, onView }: { report: Report; onView: (id: string) =
   };
 
   return (
-    <Card className={`p-6 bg-surface-card border-2 ${cardBorderStyles[report.status]} rounded-2xl shadow-sm hover:shadow-lg transition-all hover:scale-[1.02] duration-200`}>
-      <div className="flex items-start justify-between mb-6">
+    <Card className={`p-5 bg-surface-card border-2 ${cardBorderStyles[report.status]} rounded-2xl shadow-sm hover:shadow-lg transition-all hover:scale-[1.02] duration-200`}>
+      <div className="flex items-start justify-between mb-5">
         <div className="flex-1">
           <div className="flex items-center space-x-3 mb-2">
             <h3 className="text-heading-s font-display font-semibold text-text-primary">
               {report.title}
             </h3>
-            <Badge className={`text-mono-label font-mono px-3 py-1.5 rounded-lg font-medium ${statusStyles[report.status]}`}>
+            <Badge className={`text-mono-label font-mono px-2 py-1 rounded-lg font-medium ${statusStyles[report.status]}`}>
               {report.status}
             </Badge>
           </div>
@@ -76,10 +76,10 @@ function ReportCard({ report, onView }: { report: Report; onView: (id: string) =
 // Component: ReportSection for detail view
 function ReportSection({ title, icon: Icon, children }: { title: string; icon: any; children: React.ReactNode }) {
   return (
-    <Card className="p-8 bg-surface-card border border-border-subtle rounded-2xl shadow-sm">
-      <div className="flex items-center space-x-3 mb-6">
-        <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center">
-          <Icon className="h-5 w-5 text-primary" />
+    <Card className="p-7 bg-surface-card border border-border-subtle rounded-2xl shadow-sm">
+      <div className="flex items-center space-x-3 mb-5">
+        <div className="w-9 h-9 bg-primary/10 rounded-xl flex items-center justify-center">
+          <Icon className="h-4 w-4 text-primary" />
         </div>
         <h2 className="text-heading-m font-display font-semibold text-text-primary">
           {title}
@@ -190,7 +190,7 @@ export function Reports() {
 
   if (view === "detail") {
     return (
-      <div className="p-8 max-w-7xl mx-auto space-y-8">
+      <div className="p-7 max-w-6xl mx-auto space-y-7">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
@@ -354,32 +354,32 @@ export function Reports() {
     );
   }
 
-  return (
-    <div className="p-8 max-w-7xl mx-auto space-y-8">
+      return (
+      <div className="p-7 max-w-6xl mx-auto space-y-7">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-normal leading-[0.9] tracking-[-0.02em] text-black mb-6">
+          <h1 className="font-display text-3xl sm:text-4xl lg:text-[54px] font-normal leading-[0.9] tracking-[-0.02em] text-black mb-5">
             Reports
           </h1>
           <p className="text-body-m font-body text-text-secondary">
             Customer insight reports and analytics
           </p>
         </div>
-        <Button className="gradient-lint text-white font-medium rounded-xl shadow-sm hover:shadow-md transition-all px-6 py-3">
+        <Button className="gradient-lint text-white font-medium rounded-xl shadow-sm hover:shadow-md transition-all px-5 py-2">
           <Download className="mr-2 h-4 w-4" />
           Generate new report
         </Button>
       </div>
 
       {/* Filters */}
-      <div className="flex items-center space-x-4 p-6 bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl border border-gray-200">
+      <div className="flex items-center space-x-3 p-5 bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl border border-gray-200">
         <div className="flex items-center space-x-2">
           <Filter className="h-4 w-4 text-primary" />
           <span className="text-body-s font-mono text-text-secondary uppercase tracking-wider">Filters</span>
         </div>
         <Select>
-          <SelectTrigger className="w-48 font-body text-body-m rounded-xl border-2 border-gray-300 hover:border-primary transition-colors bg-white shadow-sm">
+          <SelectTrigger className="w-44 font-body text-body-s rounded-xl border-2 border-gray-300 hover:border-primary transition-colors bg-white shadow-sm">
             <SelectValue placeholder="All months" />
           </SelectTrigger>
           <SelectContent>
@@ -391,7 +391,7 @@ export function Reports() {
       </div>
 
       {/* Reports Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         {reports.map((report) => (
           <ReportCard 
             key={report.id} 

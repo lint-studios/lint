@@ -5,15 +5,27 @@ import { Badge } from "../ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { MoreHorizontal, Download, RotateCcw, Eye, Calendar, Filter, ArrowLeft, ExternalLink, Copy, TrendingUp, AlertTriangle, Lightbulb, Target } from "lucide-react";
 
+// Types
+type ReportStatus = "Ready" | "Running" | "Scheduled";
+
+interface Report {
+  id: string;
+  title: string;
+  subtitle: string;
+  date: string;
+  status: ReportStatus;
+  highlights: string[];
+}
+
 // Component: ReportCard for list view
-function ReportCard({ report, onView }: { report: any; onView: (id: string) => void }) {
-  const statusStyles = {
+function ReportCard({ report, onView }: { report: Report; onView: (id: string) => void }) {
+  const statusStyles: Record<ReportStatus, string> = {
     Ready: "bg-accent text-white shadow-sm",
     Running: "bg-secondary text-white shadow-sm", 
     Scheduled: "bg-neutral text-gray-700 shadow-sm"
   };
 
-  const cardBorderStyles = {
+  const cardBorderStyles: Record<ReportStatus, string> = {
     Ready: "border-accent/20 hover:border-accent/40",
     Running: "border-secondary/20 hover:border-secondary/40",
     Scheduled: "border-neutral/20 hover:border-neutral/40"
@@ -82,13 +94,13 @@ export function Reports() {
   const [view, setView] = useState<"list" | "detail">("list");
   const [selectedReport, setSelectedReport] = useState<string | null>(null);
 
-  const reports = [
+  const reports: Report[] = [
     {
       id: "1",
       title: "November Customer Insights",
       subtitle: "19 products, 2,400 reviews analyzed",
       date: "November 2024",
-      status: "Ready",
+      status: "Ready" as ReportStatus,
       highlights: [
         "78% positive sentiment, up 5% from last month",
         "Fast delivery mentioned in 847 reviews",
@@ -100,7 +112,7 @@ export function Reports() {
       title: "October Customer Insights",
       subtitle: "19 products, 2,156 reviews analyzed",
       date: "October 2024",
-      status: "Ready",
+      status: "Ready" as ReportStatus,
       highlights: [
         "73% positive sentiment overall",
         "Product quality praised in 623 reviews",
@@ -112,7 +124,7 @@ export function Reports() {
       title: "September Customer Insights",
       subtitle: "18 products, 1,987 reviews analyzed", 
       date: "September 2024",
-      status: "Ready",
+      status: "Ready" as ReportStatus,
       highlights: [
         "71% positive sentiment",
         "Color accuracy improved significantly",

@@ -32,10 +32,10 @@ function FeatureCard({ title, description, icon: Icon, index }: {
           <Icon className="h-3 w-3 text-blue-600" />
         </div>
         <div className="flex-1 min-w-0 flex flex-col">
-          <h3 className="text-sm font-display font-semibold text-text-primary mb-1 text-hover leading-tight">
+          <h3 className="text-base font-display font-semibold text-text-primary mb-1 text-hover leading-tight">
             {title}
           </h3>
-          <p className="text-xs font-body text-text-secondary text-hover leading-snug">
+          <p className="text-sm font-body text-text-secondary text-hover leading-snug">
             {description}
           </p>
         </div>
@@ -80,10 +80,10 @@ function DiscoveryCard({ title, description, icon: Icon, badge, index }: {
             <Icon className="h-3 w-3 text-green-600" />
           </div>
           <div className="flex-1 min-w-0 flex flex-col">
-            <h3 className="text-sm font-display font-semibold text-text-primary mb-1 text-hover leading-tight">
+            <h3 className="text-base font-display font-semibold text-text-primary mb-1 text-hover leading-tight">
               {title}
             </h3>
-            <p className="text-xs font-body text-text-secondary text-hover leading-snug">
+            <p className="text-sm font-body text-text-secondary text-hover leading-snug">
               {description}
             </p>
           </div>
@@ -168,12 +168,12 @@ export function Dashboard() {
         }`}
       >
         <h1 
-          className={`font-display text-3xl sm:text-4xl lg:text-[54px] font-normal leading-[0.9] tracking-[-0.02em] text-black mb-5 text-center smooth-transition ${
+          className={`font-display text-2xl sm:text-3xl lg:text-[44px] font-normal leading-[0.9] tracking-[-0.02em] text-black mb-5 text-center smooth-transition ${
             heroVisible ? 'animate-fade-in-up' : ''
           }`}
         >
           Welcome to{" "}
-          <span className="font-body font-medium leading-[0.9] tracking-[-0.18rem] gradient-lint-text text-2xl sm:text-3xl lg:text-[47px]">
+          <span className="font-body font-medium leading-[0.9] tracking-[-0.18rem] gradient-lint-text text-xl sm:text-2xl lg:text-[37px]">
             lint<span className="text-primary tracking-normal">.</span>
           </span>{" "}
           Customer Intelligence
@@ -209,9 +209,9 @@ export function Dashboard() {
               columnsVisible ? 'animate-fade-in-left' : ''
             }`}
           >
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-[45px] font-normal leading-[0.9] tracking-[-0.02em] text-black mb-5 text-center">
+            <h2 className="font-display text-2xl sm:text-3xl lg:text-[35px] font-normal leading-[0.9] tracking-[-0.02em] text-black mb-5 text-center">
               How{" "}
-              <span className="font-body font-medium leading-[0.9] tracking-[-0.18rem] gradient-lint-text text-2xl sm:text-3xl lg:text-[40px]">
+              <span className="font-body font-medium leading-[0.9] tracking-[-0.18rem] gradient-lint-text text-xl sm:text-2xl lg:text-[30px]">
                 lint<span className="text-primary tracking-normal">.</span>
               </span>{" "}
               Works
@@ -235,7 +235,7 @@ export function Dashboard() {
               columnsVisible ? 'animate-fade-in-right' : ''
             }`}
           >
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-[45px] font-normal leading-[0.9] tracking-[-0.02em] text-black mb-5 text-center">
+            <h2 className="font-display text-2xl sm:text-3xl lg:text-[35px] font-normal leading-[0.9] tracking-[-0.02em] text-black mb-5 text-center">
               What You'll Discover
             </h2>
             <p className="text-body-m font-body text-text-secondary text-center">

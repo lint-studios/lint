@@ -374,10 +374,10 @@ export function DataSources() {
                 disabled={disabled}
                 className={
                   integration.connected
-                    ? "w-full bg-gray-100 text-text-primary hover:bg-gray-200"
+                    ? "w-full gradient-light-green"
                     : disabled
                     ? "w-full bg-gray-100 text-text-secondary cursor-not-allowed"
-                    : "w-full bg-primary hover:bg-primary-light text-white"
+                    : "w-full gradient-light-blue"
                 }
               >
                 {integration.actionLabel}
@@ -400,25 +400,22 @@ export function DataSources() {
       <div className="p-8 max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-12">
-          <div className="flex items-start justify-between mb-6">
+          <div className="flex items-center justify-between">
             <div>
-              <h1 className="font-display text-display-l font-semibold text-text-primary mb-3">
+              <h1 className="font-display text-display-xl font-normal leading-[0.9] tracking-[-0.02em] text-black mb-6">
                 Data Sources
               </h1>
-              <p className="text-body-m text-text-secondary max-w-3xl">
+              <p className="text-body-m font-body text-text-secondary">
                 Upload your customer reviews and support tickets to start discovering trends, uncover opportunities, and spot risks.
               </p>
             </div>
-            <div className="flex gap-2">
-              <Button
-                variant="outline"
-                className="text-primary border-primary hover:bg-primary/5 flex items-center gap-2"
-                onClick={() => setIsHowItWorksOpen(true)}
-              >
-                <ExternalLink className="w-4 h-4" />
-                How it works
-              </Button>
-            </div>
+            <Button
+              onClick={() => setIsHowItWorksOpen(true)}
+              className="gradient-light-blue text-white font-medium rounded-xl shadow-sm hover:shadow-md transition-all px-6 py-3 flex items-center gap-2"
+            >
+              <ExternalLink className="w-4 h-4" />
+              How it works
+            </Button>
           </div>
         </div>
 

@@ -384,27 +384,27 @@ export function Reports() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-display-l font-display font-semibold text-text-primary mb-2">
+          <h1 className="font-display text-display-xl font-normal leading-[0.9] tracking-[-0.02em] text-black mb-6">
             Reports
           </h1>
           <p className="text-body-m font-body text-text-secondary">
             Customer insight reports and analytics
           </p>
         </div>
-        <Button className="bg-primary hover:bg-primary/90 text-white font-medium rounded-xl shadow-sm hover:shadow-md transition-all">
+        <Button className="gradient-lint text-white font-medium rounded-xl shadow-sm hover:shadow-md transition-all px-6 py-3">
           <Download className="mr-2 h-4 w-4" />
           Generate new report
         </Button>
       </div>
 
       {/* Filters */}
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-4 p-6 bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl border border-gray-200">
         <div className="flex items-center space-x-2">
-          <Filter className="h-4 w-4 text-text-secondary" />
-          <span className="text-mono-label font-mono text-text-secondary uppercase tracking-wide">FILTERS</span>
+          <Filter className="h-4 w-4 text-primary" />
+          <span className="text-body-s font-mono text-text-secondary uppercase tracking-wider">Filters</span>
         </div>
         <Select>
-          <SelectTrigger className="w-48 font-body text-body-m rounded-xl">
+          <SelectTrigger className="w-48 font-body text-body-m rounded-xl border-2 border-gray-300 hover:border-primary transition-colors bg-white shadow-sm">
             <SelectValue placeholder="All months" />
           </SelectTrigger>
           <SelectContent>

@@ -175,17 +175,12 @@ export default function BusinessInfoPage() {
   return (
     <div className="p-6 max-w-4xl mx-auto">
       {/* Page Header */}
-      <div className="flex justify-between items-start mb-8">
+      <div className="mb-8">
         <div>
           <h1 className="text-xl font-semibold text-gray-900 mb-2">Business Info</h1>
           <p className="text-sm text-gray-600">
             Core business details stored in your custom database. These details are shared across all members of your organization.
           </p>
-        </div>
-        <div className="text-right">
-          <p className="text-xs text-gray-500">LAST UPDATED</p>
-          <p className="text-xs text-gray-700">Aug 10, 2024, 10:30 AM</p>
-          <p className="text-xs text-gray-700">by Sarah Johnson</p>
         </div>
       </div>
 

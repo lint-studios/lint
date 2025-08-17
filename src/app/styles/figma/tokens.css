@@ -60,23 +60,23 @@
   /* Subtle ring for cards */
   --ring: 0 0 0 1px var(--border);
 
-  /* Typography Scale */
-  --text-display-xl: 3rem; /* 48px */
-  --text-display-l: 2.25rem; /* 36px */
-  --text-heading-m: 1.5rem; /* 24px */
-  --text-heading-s: 1.25rem; /* 20px */
-  --text-body-m: 1rem; /* 16px */
-  --text-body-s: 0.875rem; /* 14px */
-  --text-mono-label: 0.75rem; /* 12px */
+  /* Typography Scale - Scaled down by 10% */
+  --text-display-xl: 2.7rem; /* 43.2px */
+  --text-display-l: 2.025rem; /* 32.4px */
+  --text-heading-m: 1.35rem; /* 21.6px */
+  --text-heading-s: 1.125rem; /* 18px */
+  --text-body-m: 0.9rem; /* 14.4px */
+  --text-body-s: 0.7875rem; /* 12.6px */
+  --text-mono-label: 0.675rem; /* 10.8px */
 
-  /* Line Heights */
-  --line-height-display-xl: 3.5rem; /* 56px */
-  --line-height-display-l: 2.75rem; /* 44px */
-  --line-height-heading-m: 2rem; /* 32px */
-  --line-height-heading-s: 1.75rem; /* 28px */
-  --line-height-body-m: 1.5rem; /* 24px */
-  --line-height-body-s: 1.25rem; /* 20px */
-  --line-height-mono-label: 1rem; /* 16px */
+  /* Line Heights - Scaled down by 10% */
+  --line-height-display-xl: 3.15rem; /* 50.4px */
+  --line-height-display-l: 2.475rem; /* 39.6px */
+  --line-height-heading-m: 1.8rem; /* 28.8px */
+  --line-height-heading-s: 1.575rem; /* 25.2px */
+  --line-height-body-m: 1.35rem; /* 21.6px */
+  --line-height-body-s: 1.125rem; /* 18px */
+  --line-height-mono-label: 0.9rem; /* 14.4px */
 }
 
 /* Global page bg + default text color */

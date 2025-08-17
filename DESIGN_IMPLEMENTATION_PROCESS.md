@@ -143,9 +143,130 @@ const dmSans = DM_Sans({
 4. Enhance card hover effects
 ```
 
-## 🧪 Phase 4: Testing & Refinement
+## 🚨 Phase 4: Troubleshooting Common Issues
 
-### 4.1 Incremental Testing
+### 4.1 CSS Import & Gradient Text Issues
+
+**Problem:** Gradient text effects not appearing despite correct CSS implementation.
+
+**Root Cause Analysis:**
+```bash
+# Check CSS import order in layout.tsx
+read_file src/app/layout.tsx
+
+# Verify gradient styles location
+grep_search "gradient-lint-text" *.css
+
+# Check for conflicting styles
+grep_search "@layer base" *.css
+```
+
+**Common Issues & Solutions:**
+
+#### Issue 1: Wrong CSS File Import
+**Problem:** Layout importing `src/app/globals.css` instead of main `styles/globals.css`
+```typescript
+// ❌ Wrong - only has Tailwind directives
+import './globals.css'
+
+// ✅ Correct - has all styles including gradients
+import '../../styles/globals.css'
+```
+
+#### Issue 2: Missing Tailwind Directives
+**Problem:** `@layer base` used without `@tailwind base`
+```css
+/* ❌ Missing Tailwind directives */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+}
+
+/* ✅ Correct - add Tailwind directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+}
+```
+
+#### Issue 3: Gradient Styles in Wrong Location
+**Problem:** Gradient styles in main globals.css but not being imported
+```bash
+# Solution: Move gradient styles to Figma CSS files
+# 1. Add to src/app/styles/figma/figma.css
+# 2. Ensure proper import order in layout.tsx
+```
+
+**Correct Implementation:**
+```css
+/* src/app/styles/figma/figma.css */
+.gradient-lint-text {
+  background: linear-gradient(135deg, #2563EB 0%, #3B82F6 25%, #10B981 50%, #F97316 75%, #FB923C 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradientShift 4s ease-in-out infinite;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+```
+
+#### Issue 4: Import Order Matters
+**Problem:** CSS files imported in wrong order causing overrides
+```typescript
+// ✅ Correct import order
+import './globals.css'           // Tailwind directives first
+import './styles/figma/tokens.css'  // Design tokens
+import './styles/figma/fonts.css'   // Font definitions
+import './styles/figma/figma.css'   // Component styles (including gradients)
+```
+
+### 4.2 Build & Compilation Issues
+
+**Problem:** Build fails with CSS syntax errors
+
+**Debugging Steps:**
+```bash
+# 1. Check for missing Tailwind classes
+npm run build
+
+# 2. Look for @layer issues
+grep_search "@layer" *.css
+
+# 3. Verify Tailwind directives exist
+grep_search "@tailwind" *.css
+
+# 4. Check for conflicting CSS properties
+grep_search "outline-ring" *.css
+```
+
+**Quick Fixes:**
+```bash
+# Clear Next.js cache
+rm -rf .next
+
+# Restart development server
+pkill -f "next dev" && npm run dev
+
+# Check for port conflicts
+lsof -i :3000 -i :3001 -i :3002
+```
+
+## 🧪 Phase 5: Testing & Refinement
+
+### 5.1 Incremental Testing
 ```bash
 # After each change:
 1. npm run dev
@@ -154,20 +275,21 @@ const dmSans = DM_Sans({
 4. Iterate on any discrepancies
 ```
 
-### 4.2 Color System Validation
+### 5.2 Color System Validation
 ```bash
 # Ensure all referenced colors exist in Tailwind config:
 grep_search "bg-warning|text-neutral" # Find missing colors
 # Add to tailwind.config.js if missing
 ```
 
-### 4.3 Animation Verification
+### 5.3 Animation Verification
 ```bash
 # Test interaction patterns:
 - Button hover states
 - Sidebar active indicators  
 - Card elevation effects
 - Transition smoothness
+- Gradient text animations
 ```
 
 ## 📋 Process Checklist
@@ -182,19 +304,28 @@ grep_search "bg-warning|text-neutral" # Find missing colors
 - [ ] Create design token CSS file
 - [ ] Implement utility class system
 - [ ] Update Tailwind configuration
-- [ ] Import styles in layout.tsx
+- [ ] Import styles in layout.tsx with correct order
 
 ### ✅ Component Updates
 - [ ] Enhance button system with animations
 - [ ] Integrate typography with Google Fonts
 - [ ] Update navigation with proper states
 - [ ] Fix color system and missing definitions
+- [ ] Implement gradient text effects
+
+### ✅ Troubleshooting
+- [ ] Verify CSS import order
+- [ ] Check for missing Tailwind directives
+- [ ] Ensure gradient styles in correct location
+- [ ] Test build and development server
+- [ ] Validate gradient animations work
 
 ### ✅ Quality Assurance
 - [ ] Test all interactive elements
 - [ ] Verify color consistency
 - [ ] Validate animation smoothness
 - [ ] Compare final result with reference
+- [ ] Confirm gradient text effects visible
 
 ## 🎯 Key Success Principles
 
@@ -205,6 +336,8 @@ grep_search "bg-warning|text-neutral" # Find missing colors
 5. **State-Aware Styling**: Handle active/hover states properly
 6. **Animation Integration**: Smooth transitions for premium feel
 7. **Design System Consistency**: Reusable classes over one-offs
+8. **CSS Import Order**: Critical for proper style application
+9. **Gradient Implementation**: Must be in correct CSS file with proper properties
 
 ## 🔧 Tools & Commands Used
 
@@ -219,20 +352,27 @@ codebase_search "animation|transition|hover"
 search_replace (file updates)
 read_lints (error checking)
 
+# Troubleshooting
+grep_search "gradient-lint-text" *.css
+grep_search "@tailwind" *.css
+grep_search "@layer" *.css
+
 # Testing
 npm run dev (local server)
+npm run build (check for errors)
+rm -rf .next (clear cache)
 ```
 
 ## 📁 File Structure Created
 ```
 src/app/styles/figma/
 ├── tokens.css      # Design tokens and CSS variables
-├── figma.css       # Utility classes and components
+├── figma.css       # Utility classes and components (including gradients)
 └── fonts.css       # Font definitions (stub)
 
 Updated:
 ├── tailwind.config.js  # Color mappings and configuration
-├── layout.tsx          # Font integration
+├── layout.tsx          # Font integration + proper CSS import order
 └── components/         # Enhanced with proper styling
 ```
 
@@ -243,7 +383,8 @@ Updated:
 - ✅ Consistent design system
 - ✅ Scalable foundation for future development
 - ✅ Professional, polished user interface
+- ✅ Working gradient text effects with animations
 
 ---
 
-**Note**: This process ensures any future design implementations achieve the same level of precision and attention to detail, resulting in professional interfaces that exactly match design specifications.
+**Note**: This process ensures any future design implementations achieve the same level of precision and attention to detail, resulting in professional interfaces that exactly match design specifications. The troubleshooting section specifically addresses common CSS import and gradient styling issues encountered during implementation.

@@ -56,7 +56,7 @@ export function Sidebar({ currentPage, onPageChange }: SidebarProps) {
 
 
   return (
-    <div className="w-56 bg-surface-card border-r border-border-subtle p-5 flex flex-col h-screen">
+    <div className="w-60 bg-surface-card border-r border-border-subtle p-6 flex flex-col h-screen">
       {/* Navigation */}
       <nav className="space-y-1">
         {navigationItems.map((item) => {
@@ -68,7 +68,7 @@ export function Sidebar({ currentPage, onPageChange }: SidebarProps) {
               variant={isActive ? "default" : "ghost"}
               onClick={() => onPageChange(item.id)}
               className={cn(
-                "w-full justify-start font-body text-xs font-medium rounded-xl h-7",
+                "w-full justify-start font-body text-xs font-medium rounded-xl h-8",
                 isActive ? "bg-primary text-white shadow-sm" : "hover:bg-surface-hover text-text-secondary hover:text-text-primary"
               )}
             >
@@ -84,7 +84,7 @@ export function Sidebar({ currentPage, onPageChange }: SidebarProps) {
         <Button
           variant="ghost"
           onClick={() => setOrganizationExpanded(!organizationExpanded)}
-          className="w-full justify-between font-body text-xs font-medium hover:bg-surface-hover transition-colors duration-200 rounded-xl h-7"
+          className="w-full justify-between font-body text-xs font-medium hover:bg-surface-hover transition-colors duration-200 rounded-xl h-8"
         >
           <div className="flex items-center">
             <Building className="h-4 w-4" />

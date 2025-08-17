@@ -36,12 +36,12 @@ export function TopBar({ onNavigateHome }: TopBarProps = {}) {
   }, []);
 
   return (
-    <header className="h-14 bg-surface-card border-b border-border-subtle flex items-center justify-between px-5">
+    <header className="h-16 bg-surface-card border-b border-border-subtle flex items-center justify-between px-6">
       {/* Logo */}
       <div className="flex items-center">
         <button
           onClick={() => onNavigateHome?.()}
-          className="font-body text-[1.69rem] font-medium leading-tight tracking-[-0.094rem] text-black hover:text-primary transition-colors duration-200"
+          className="font-body text-[1.875rem] font-medium leading-tight tracking-[-0.094rem] text-black hover:text-primary transition-colors duration-200"
         >
           lint<span className="text-primary">.</span>
         </button>

@@ -403,7 +403,7 @@ export function DataSources() {
           <div className="flex items-start justify-between mb-6">
             <div>
               <h1 className="font-display text-display-l font-semibold text-text-primary mb-3">
-                Connect Your Data Sources
+                Data Sources
               </h1>
               <p className="text-body-m text-text-secondary max-w-3xl">
                 Upload your customer reviews and support tickets to start discovering trends, uncover opportunities, and spot risks.

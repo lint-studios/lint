@@ -1,52 +1,42 @@
-import {
-  Plus,
-  ArrowUpRight,
-  TrendingUp,
-  Users,
-  ShoppingCart,
-  MessageSquare,
-  Tag,
-  ExternalLink,
-  Copy,
-  Eye,
-  Link,
-  Bot,
-  BarChart3,
-  Rocket,
-  Lightbulb,
-  AlertTriangle,
-  Target,
-} from "lucide-react";
+import { Eye, Link, Server, BarChart3, Rocket, Lightbulb, AlertTriangle, Target, BarChart } from "lucide-react";
 import { Button } from "../ui/button";
 import { Card } from "../ui/card";
 import { Badge } from "../ui/badge";
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
-// Component: HowItWorksCard
-function HowItWorksCard({
-  title,
-  description,
-  icon: Icon,
-  iconBg,
-  iconColor,
-}: {
+// Component: FeatureCard for "How lint. Works" section
+function FeatureCard({ title, description, icon: Icon, index }: {
   title: string;
   description: string;
   icon: any;
-  iconBg: string;
-  iconColor: string;
+  index: number;
 }) {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsVisible(true), index * 150);
+    return () => clearTimeout(timer);
+  }, [index]);
+
   return (
-    <Card className="p-4 bg-surface-card border border-border-subtle rounded-2xl shadow-sm hover:shadow-md transition-shadow h-full min-h-[100px]">
-      <div className="flex items-start space-x-3 h-full">
-        <div className={`w-10 h-10 ${iconBg} rounded-xl flex items-center justify-center flex-shrink-0`}>
-          <Icon className={`h-5 w-5 ${iconColor}`} />
+    <Card 
+      className={`panel-card smooth-transition ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+      }`}
+      style={{ 
+        transitionDelay: `${index * 100}ms`,
+        animation: isVisible ? 'slideInUp 0.6s ease-out forwards' : 'none'
+      }}
+    >
+      <div className="flex items-start space-x-4 group">
+        <div className="kpi-chip icon-hover">
+          <Icon className="h-5 w-5 text-primary" />
         </div>
-        <div className="flex-1 flex flex-col">
-          <h3 className="text-lg font-display font-semibold text-text-primary mb-1 leading-tight">
+        <div className="flex-1">
+          <h3 className="text-heading-s font-display font-semibold text-text-primary mb-2 text-hover">
             {title}
           </h3>
-          <p className="text-sm font-body text-text-secondary leading-snug flex-1">
+          <p className="text-body-s font-body text-text-secondary text-hover">
             {description}
           </p>
         </div>
@@ -55,184 +45,215 @@ function HowItWorksCard({
   );
 }
 
-// Component: DiscoveryCard
-function DiscoveryCard({
-  title,
-  description,
-  badge,
-  icon: Icon,
-  iconBg,
-  iconColor,
-  badgeGradient = "gradient-light-green",
-}: {
+// Component: DiscoveryCard for "What You'll Discover" section
+function DiscoveryCard({ title, description, icon: Icon, badge, index }: {
   title: string;
   description: string;
-  badge: string;
   icon: any;
-  iconBg: string;
-  iconColor: string;
-  badgeGradient?: string;
+  badge: { text: string; color: string };
+  index: number;
 }) {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsVisible(true), index * 150);
+    return () => clearTimeout(timer);
+  }, [index]);
+
+  const badgeColors = {
+    green: "bg-green-100 text-green-700 border-green-200",
+    blue: "bg-blue-100 text-blue-700 border-blue-200", 
+    orange: "bg-orange-100 text-orange-700 border-orange-200",
+    purple: "bg-purple-100 text-purple-700 border-purple-200"
+  };
+
   return (
-    <Card className="p-4 bg-surface-card border border-border-subtle rounded-2xl shadow-sm hover:shadow-md transition-shadow h-full min-h-[100px]">
-      <div className="flex items-start space-x-3 h-full">
-        <div className={`w-10 h-10 ${iconBg} rounded-xl flex items-center justify-center flex-shrink-0`}>
-          <Icon className={`h-5 w-5 ${iconColor}`} />
-        </div>
-        <div className="flex-1 flex flex-col">
-          <div className="flex items-center justify-between mb-1">
-            <h3 className="text-lg font-display font-semibold text-text-primary leading-tight">
+    <Card 
+      className={`panel-card smooth-transition ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+      }`}
+      style={{ 
+        transitionDelay: `${index * 100}ms`,
+        animation: isVisible ? 'slideInUp 0.6s ease-out forwards' : 'none'
+      }}
+    >
+      <div className="flex items-start justify-between group">
+        <div className="flex items-start space-x-4">
+          <div className="kpi-chip icon-hover">
+            <Icon className="h-5 w-5 text-gray-600" />
+          </div>
+          <div className="flex-1">
+            <h3 className="text-heading-s font-display font-semibold text-text-primary mb-2 text-hover">
               {title}
             </h3>
-            <Badge className={`${badgeGradient} text-white text-xs font-mono px-2 py-1 rounded-lg shadow-sm border-0`}>
-              {badge}
-            </Badge>
+            <p className="text-body-s font-body text-text-secondary text-hover">
+              {description}
+            </p>
           </div>
-          <p className="text-sm font-body text-text-secondary leading-snug">
-            {description}
-          </p>
         </div>
+        <Badge 
+          className={`text-mono-label font-mono px-2 py-1 rounded-lg badge-hover border ${badgeColors[badge.color as keyof typeof badgeColors]}`}
+        >
+          {badge.text}
+        </Badge>
       </div>
     </Card>
   );
 }
 
 export function Dashboard() {
-  const router = useRouter();
+  const [heroVisible, setHeroVisible] = useState(false);
+  const [columnsVisible, setColumnsVisible] = useState(false);
 
-  const handleViewReports = () => {
-    router.push('/dashboard?page=reports');
-  };
+  useEffect(() => {
+    // Hero animation
+    const heroTimer = setTimeout(() => setHeroVisible(true), 200);
+    
+    // Columns animation
+    const columnsTimer = setTimeout(() => setColumnsVisible(true), 800);
+    
+    return () => {
+      clearTimeout(heroTimer);
+      clearTimeout(columnsTimer);
+    };
+  }, []);
 
-  const howItWorks = [
+  const howItWorksFeatures = [
     {
       title: "Connect Your Data",
-      description: "Link reviews, support tickets, and customer feedback from any platform",
-      icon: Link,
-      iconBg: "bg-blue-50",
-      iconColor: "text-blue-600",
+      description: "Link reviews, support tickets, and customer feedback from any platform.",
+      icon: Link
     },
     {
-      title: "AI-Powered Analysis",
-      description: "Advanced clustering identifies patterns, sentiment, and emerging trends",
-      icon: Bot,
-      iconBg: "bg-blue-50",
-      iconColor: "text-blue-600",
+      title: "AI-Powered Analysis", 
+      description: "Advanced clustering identifies patterns, sentiment, and emerging trends.",
+      icon: Server
     },
     {
       title: "Actionable Reports",
-      description: "Get specific recommendations with priority levels and ROI projections",
-      icon: BarChart3,
-      iconBg: "bg-blue-50",
-      iconColor: "text-blue-600",
+      description: "Get specific recommendations with priority levels and ROI projections.",
+      icon: BarChart3
     },
     {
       title: "Drive Results",
-      description: "Implement changes that measurably improve customer satisfaction",
-      icon: Rocket,
-      iconBg: "bg-blue-50",
-      iconColor: "text-blue-600",
-    },
+      description: "Implement changes that measurably improve customer satisfaction.",
+      icon: Rocket
+    }
   ];
 
-  const discoveries = [
+  const discoveryFeatures = [
     {
       title: "Hidden Opportunities",
-      description: "Untapped market segments and product innovation ideas",
-      badge: "95% accuracy",
+      description: "Untapped market segments and product innovation ideas.",
       icon: Lightbulb,
-      iconBg: "bg-green-50",
-      iconColor: "text-green-600",
-      badgeGradient: "gradient-light-green",
+      badge: { text: "95% accuracy", color: "green" }
     },
     {
       title: "Critical Issues",
-      description: "Problems affecting retention before they become widespread",
-      badge: "89% prediction rate",
+      description: "Problems affecting retention before they become widespread.",
       icon: AlertTriangle,
-      iconBg: "bg-green-50",
-      iconColor: "text-green-600",
-      badgeGradient: "gradient-light-blue",
+      badge: { text: "89% prediction rate", color: "blue" }
     },
     {
       title: "Priority Actions",
-      description: "Ranked recommendations with expected revenue impact",
-      badge: "Impact scored",
+      description: "Ranked recommendations with expected revenue impact.",
       icon: Target,
-      iconBg: "bg-green-50",
-      iconColor: "text-green-600",
-      badgeGradient: "gradient-light-orange",
+      badge: { text: "Impact scored", color: "orange" }
     },
     {
       title: "Business Growth",
-      description: "Quantified results from customer insight implementation",
-      badge: "Measurable ROI",
-      icon: TrendingUp,
-      iconBg: "bg-green-50",
-      iconColor: "text-green-600",
-      badgeGradient: "gradient-light-purple",
-    },
+      description: "Quantified results from customer insight implementation.",
+      icon: BarChart,
+      badge: { text: "Measurable ROI", color: "purple" }
+    }
   ];
 
   return (
-    <div className="p-7 max-w-7xl mx-auto space-y-7">
+    <div className="p-8 max-w-7xl mx-auto space-y-16">
       {/* Hero Section */}
-      <div className="text-center space-y-3 py-7">
-        <h1 className="font-display text-3xl sm:text-4xl lg:text-[54px] font-normal leading-[0.9] tracking-[-0.02em] text-black mb-5 text-center">
+      <div 
+        className={`text-center space-y-6 smooth-transition ${
+          heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}
+      >
+        <h1 
+          className={`font-display text-4xl sm:text-5xl lg:text-6xl font-normal leading-[0.9] tracking-[-0.02em] text-black mb-6 text-center text-[64px] smooth-transition ${
+            heroVisible ? 'animate-fade-in-up' : ''
+          }`}
+        >
           Welcome to{" "}
-          <span className="font-body font-medium leading-[0.9] tracking-[-0.15rem] gradient-lint-text text-2xl sm:text-3xl lg:text-[47px]">
+          <span className="font-body font-medium leading-[0.9] tracking-[-0.02em] gradient-lint-text text-[60px]">
             lint<span className="text-primary">.</span>
           </span>{" "}
           Customer Intelligence
         </h1>
-        <p className="text-body-m font-body text-text-secondary max-w-2xl mx-auto">
-          Transform customer feedback into actionable business insights with AI-powered analysis
+        <p 
+          className={`text-body-m font-body text-text-secondary max-w-2xl mx-auto smooth-transition ${
+            heroVisible ? 'animate-fade-in-up stagger-1' : ''
+          }`}
+        >
+          Transform customer feedback into actionable business insights with AI-powered analysis.
         </p>
         <Button 
-          onClick={handleViewReports}
-          className="gradient-lint text-white font-medium rounded-xl shadow-sm hover:shadow-md transition-all mt-5 px-7 py-3 text-body-m text-[rgba(255,255,255,1)] text-[14px]"
+          className={`btn-cta button-hover micro-bounce ${
+            heroVisible ? 'opacity-100 translate-y-0 animate-fade-in-up stagger-2' : 'opacity-0 translate-y-4'
+          }`}
         >
-          <Eye className="mr-3 h-4 w-4" />
+          <Eye className="mr-2 h-4 w-4" />
           View Your Reports
         </Button>
       </div>
 
-      {/* Main Content - Two Columns */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-        {/* Left Column: How LINT Works */}
-        <div className="space-y-5">
-          <div className="text-center">
-            <h2 className="font-display text-2xl sm:text-3xl lg:text-[45px] font-normal leading-[0.9] tracking-[-0.02em] text-black mb-5 flex items-center justify-center gap-2">
+      {/* Two-Column Feature Showcase */}
+      <div 
+        className={`grid grid-cols-1 lg:grid-cols-2 gap-16 smooth-transition ${
+          columnsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}
+      >
+        {/* Left Column: How lint. Works */}
+        <div className="space-y-8">
+          <div 
+            className={`space-y-3 smooth-transition ${
+              columnsVisible ? 'animate-fade-in-left' : ''
+            }`}
+          >
+            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-normal leading-[0.9] tracking-[-0.02em] text-black mb-6 flex items-center justify-center gap-2 text-[50px]">
               How
-              <span className="font-body font-medium leading-[0.9] tracking-[-0.15rem] gradient-lint-text text-xl sm:text-2xl lg:text-[40px]">
+              <span className="font-body font-medium leading-[0.9] tracking-[-0.02em] gradient-lint-text text-[45px]">
                 lint<span className="text-primary">.</span>
               </span>
               Works
             </h2>
-            <p className="text-body-s font-body text-text-secondary">
+            <p className="text-body-m font-body text-text-secondary">
               From raw feedback to strategic insights in minutes
             </p>
           </div>
-          <div className="space-y-3">
-            {howItWorks.map((item, index) => (
-              <HowItWorksCard key={index} {...item} />
+          
+          <div className="space-y-6">
+            {howItWorksFeatures.map((feature, index) => (
+              <FeatureCard key={index} {...feature} index={index} />
             ))}
           </div>
         </div>
 
         {/* Right Column: What You'll Discover */}
-        <div className="space-y-5">
-          <div className="text-center">
-            <h2 className="font-display text-2xl sm:text-3xl lg:text-[45px] font-normal leading-[0.9] tracking-[-0.02em] text-black mb-5">
+        <div className="space-y-8">
+          <div 
+            className={`space-y-3 smooth-transition ${
+              columnsVisible ? 'animate-fade-in-right' : ''
+            }`}
+          >
+            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-normal leading-[0.9] tracking-[-0.02em] text-black mb-6 text-[50px]">
               What You'll Discover
             </h2>
-            <p className="text-body-s font-body text-text-secondary">
+            <p className="text-body-m font-body text-text-secondary">
               Insights that drive real business growth
             </p>
           </div>
-          <div className="space-y-3">
-            {discoveries.map((item, index) => (
-              <DiscoveryCard key={index} {...item} />
+          
+          <div className="space-y-6">
+            {discoveryFeatures.map((feature, index) => (
+              <DiscoveryCard key={index} {...feature} index={index} />
             ))}
           </div>
         </div>

@@ -300,6 +300,45 @@ For issues or questions:
 3. Ensure all dependencies are installed
 4. Verify database connectivity and schema
 
+## Report Upload Script
+
+### `upload-report.js` - Interactive Report Upload
+
+Upload customer insight reports to the database with an interactive interface.
+
+**Usage:**
+```bash
+node scripts/upload-report.js <report-file.json>
+```
+
+**Features:**
+- 🏢 **Organization Selection**: Choose from available organizations in your database
+- 🔗 **Google Drive Integration**: Add Google Drive URLs for document access
+- 📊 **Report Type Options**: Select monthly, weekly, or custom report types
+- 📝 **Custom Titles**: Override default titles and subtitles
+- ✅ **Confirmation**: Preview before uploading with confirmation prompt
+- 🎯 **Smart Extraction**: Automatically extracts analytics from JSON data
+
+**Interactive Flow:**
+1. Select organization from list
+2. Enter Google Drive URL (optional)
+3. Choose report type (monthly/weekly/custom)
+4. Customize title/subtitle (optional)
+5. Review details and confirm upload
+
+**Example:**
+```bash
+node scripts/upload-report.js reports/luna-sleep-co-insights-2025-08-14T01-18-59.json
+```
+
+**Data Extraction:**
+The script automatically extracts:
+- Key findings and insights from `executiveSummary`
+- Analytics data (reviews analyzed, sentiment score, etc.)
+- Date ranges from `metadata`
+- Highlights and critical issues
+- Complete metadata preservation
+
 ## License
 
 Private - Lint Insights Generator

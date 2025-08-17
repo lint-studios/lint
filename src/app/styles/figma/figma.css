@@ -106,7 +106,7 @@
 }
 .panel-card {
   background:var(--card); border:1px solid var(--border); border-radius:16px;
-  padding:0.5rem 0.75rem; box-shadow: var(--shadow-sm);
+  padding:1rem 1.25rem; box-shadow: var(--shadow-sm);
 }
 
 /* Lint brand gradient */
@@ -206,92 +206,5 @@
   100% {
     background-position: 100% 50%;
     transform: scale(1.05);
-  }
-}
-
-/* Light blue gradient for badges */
-.gradient-light-blue {
-  background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 20%, #60A5FA 100%);
-  background-size: 200% 200%;
-  position: relative;
-  box-shadow: 0 2px 6px -1px rgba(96, 165, 250, 0.15), 0 1px 4px -1px rgba(96, 165, 250, 0.1);
-  color: white;
-  animation: gradientFlow 8s ease-in-out infinite;
-}
-
-.gradient-light-blue:hover {
-  background: linear-gradient(135deg, #3B82F6 0%, #2563EB 20%, #3B82F6 100%);
-  background-size: 200% 200%;
-  box-shadow: 0 4px 10px -1px rgba(59, 130, 246, 0.2), 0 2px 6px -1px rgba(59, 130, 246, 0.15);
-  transform: translateY(-1px);
-  color: white;
-  animation: gradientFlow 8s ease-in-out infinite;
-}
-
-/* Light purple gradient for badges */
-.gradient-light-purple {
-  background: linear-gradient(135deg, #C4B5FD 0%, #A78BFA 20%, #C4B5FD 100%);
-  background-size: 200% 200%;
-  position: relative;
-  animation: gradientFlow 8s ease-in-out infinite;
-}
-
-.gradient-light-purple:hover {
-  background: linear-gradient(135deg, #A78BFA 0%, #8B5CF6 20%, #A78BFA 100%);
-  background-size: 200% 200%;
-  animation: gradientFlow 8s ease-in-out infinite;
-}
-
-/* Light green gradient for badges */
-.gradient-light-green {
-  background: linear-gradient(135deg, #6EE7B7 0%, #34D399 20%, #6EE7B7 100%);
-  background-size: 200% 200%;
-  position: relative;
-  animation: gradientFlow 8s ease-in-out infinite;
-}
-
-.gradient-light-green:hover {
-  background: linear-gradient(135deg, #34D399 0%, #10B981 20%, #34D399 100%);
-  background-size: 200% 200%;
-  animation: gradientFlow 8s ease-in-out infinite;
-}
-
-/* Light orange gradient for badges */
-.gradient-light-orange {
-  background: linear-gradient(135deg, #FB923C 0%, #F97316 20%, #FB923C 100%);
-  background-size: 200% 200%;
-  position: relative;
-  animation: gradientFlow 8s ease-in-out infinite;
-}
-
-.gradient-light-orange:hover {
-  background: linear-gradient(135deg, #F97316 0%, #EA580C 20%, #F97316 100%);
-  background-size: 200% 200%;
-  animation: gradientFlow 8s ease-in-out infinite;
-}
-
-/* Report view button gradient */
-.gradient-view-report {
-  background: linear-gradient(135deg, #10B981 0%, #34D399 25%, #C4B5FD 50%, #F97316 75%, #FB923C 100%);
-  position: relative;
-}
-
-.gradient-view-report:hover {
-  background: linear-gradient(135deg, #059669 0%, #10B981 25%, #A78BFA 50%, #EA580C 75%, #F97316 100%);
-}
-
-/* Gradient animations */
-@keyframes gradientFlow {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  25% {
-    background-position: 100% 50%;
-  }
-  50% {
-    background-position: 100% 100%;
-  }
-  75% {
-    background-position: 0% 100%;
   }
 }

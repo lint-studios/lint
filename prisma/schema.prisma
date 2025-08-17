@@ -23,8 +23,8 @@ model Organization {
   // domain tables will reference organizationId
   apiTokens ApiToken[]
   reviews   Review[]
+  reports   Report[]
   // insights  Insight[]
-  // reports   Report[]
 
   @@map("organizations")
 }
@@ -74,4 +74,30 @@ model Review {
 
   @@unique([organizationId, externalId, source], name: "reviews_organizationId_externalId_source_key")
   @@map("reviews")
+}
+
+model Report {
+  id                  String    @id @default(cuid())
+  organizationId      String
+  title               String
+  subtitle            String
+  status              String    @default("ready")     // "ready" | "generating" | "failed"
+  reportType          String                          // "monthly" | "weekly" | "custom"
+  reportStartDate     DateTime
+  reportEndDate       DateTime
+  googleDriveUrl      String?
+  highlights          Json?
+  metadata            Json?
+  sourcesCount        Int       @default(0)
+  productsAnalyzed    Int       @default(0)
+  reviewsAnalyzed     Int       @default(0)
+  sentimentScore      Float?
+  downloadCount       Int       @default(0)
+  lastDownloaded      DateTime?
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+
+  organization        Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@map("reports")
 }

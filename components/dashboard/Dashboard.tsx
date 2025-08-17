@@ -184,8 +184,8 @@ export function Dashboard() {
           }`}
         >
           Welcome to{" "}
-          <span className="font-body font-medium leading-[0.9] tracking-[-0.15rem] gradient-lint-text text-2xl sm:text-3xl lg:text-[47px]">
-            lint<span className="text-primary">.</span>
+          <span className="font-body font-medium leading-[0.9] tracking-[-0.18rem] gradient-lint-text text-2xl sm:text-3xl lg:text-[47px]">
+            lint<span className="text-primary tracking-normal">.</span>
           </span>{" "}
           Customer Intelligence
         </h1>
@@ -220,14 +220,14 @@ export function Dashboard() {
               columnsVisible ? 'animate-fade-in-left' : ''
             }`}
           >
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-[45px] font-normal leading-[0.9] tracking-[-0.02em] text-black mb-5 flex items-center justify-center gap-2">
-              How
-              <span className="font-body font-medium leading-[0.9] tracking-[-0.15rem] gradient-lint-text text-2xl sm:text-3xl lg:text-[40px]">
-                lint<span className="text-primary">.</span>
-              </span>
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-[45px] font-normal leading-[0.9] tracking-[-0.02em] text-black mb-5 text-center">
+              How{" "}
+              <span className="font-body font-medium leading-[0.9] tracking-[-0.18rem] gradient-lint-text text-2xl sm:text-3xl lg:text-[40px]">
+                lint<span className="text-primary tracking-normal">.</span>
+              </span>{" "}
               Works
             </h2>
-            <p className="text-body-m font-body text-text-secondary">
+            <p className="text-body-m font-body text-text-secondary text-center">
               From raw feedback to strategic insights in minutes
             </p>
           </div>
@@ -246,10 +246,10 @@ export function Dashboard() {
               columnsVisible ? 'animate-fade-in-right' : ''
             }`}
           >
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-[45px] font-normal leading-[0.9] tracking-[-0.02em] text-black mb-5">
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-[45px] font-normal leading-[0.9] tracking-[-0.02em] text-black mb-5 text-center">
               What You'll Discover
             </h2>
-            <p className="text-body-m font-body text-text-secondary">
+            <p className="text-body-m font-body text-text-secondary text-center">
               Insights that drive real business growth
             </p>
           </div>

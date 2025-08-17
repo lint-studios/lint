@@ -474,10 +474,10 @@ export function Reports() {
             </div>
             <div>
               <h3 className="text-heading-s font-display font-semibold text-text-primary mb-2">
-                No reports yet
+                No reports for your organization
               </h3>
               <p className="text-body-s font-body text-text-secondary">
-                Generate your first customer insights report to get started.
+                Generate your first customer insights report to get started analyzing feedback.
               </p>
             </div>
             <Button className="bg-primary hover:bg-primary/90 text-white font-medium rounded-xl">

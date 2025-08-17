@@ -1,11 +1,27 @@
 import { NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
+import { auth } from '@clerk/nextjs/server';
 
 const prisma = new PrismaClient();
 
 export async function GET() {
   try {
+    const { orgId } = await auth();
+    
+    if (!orgId) {
+      return NextResponse.json(
+        { 
+          success: false, 
+          error: 'Organization not found' 
+        },
+        { status: 401 }
+      );
+    }
+
     const reports = await prisma.report.findMany({
+      where: {
+        organizationId: orgId
+      },
       include: {
         organization: {
           select: {

@@ -15,9 +15,8 @@ function FeatureCard({ title, description, icon: Icon, index }: {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), index * 150);
-    return () => clearTimeout(timer);
-  }, [index]);
+    setIsVisible(true);
+  }, []);
 
   return (
     <Card 
@@ -25,8 +24,7 @@ function FeatureCard({ title, description, icon: Icon, index }: {
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
       }`}
       style={{ 
-        transitionDelay: `${index * 100}ms`,
-        animation: isVisible ? 'slideInUp 0.6s ease-out forwards' : 'none'
+        animation: isVisible ? 'slideInUp 0.3s ease-out forwards' : 'none'
       }}
     >
       <div className="flex items-start space-x-3 group h-full">
@@ -57,9 +55,8 @@ function DiscoveryCard({ title, description, icon: Icon, badge, index }: {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), index * 150);
-    return () => clearTimeout(timer);
-  }, [index]);
+    setIsVisible(true);
+  }, []);
 
   const badgeColors = {
     green: "gradient-light-green text-white",
@@ -74,8 +71,7 @@ function DiscoveryCard({ title, description, icon: Icon, badge, index }: {
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
       }`}
       style={{ 
-        transitionDelay: `${index * 100}ms`,
-        animation: isVisible ? 'slideInUp 0.6s ease-out forwards' : 'none'
+        animation: isVisible ? 'slideInUp 0.3s ease-out forwards' : 'none'
       }}
     >
       <div className="flex items-start justify-between group h-full">
@@ -108,16 +104,9 @@ export function Dashboard() {
   const router = useRouter();
 
   useEffect(() => {
-    // Hero animation
-    const heroTimer = setTimeout(() => setHeroVisible(true), 200);
-    
-    // Columns animation
-    const columnsTimer = setTimeout(() => setColumnsVisible(true), 800);
-    
-    return () => {
-      clearTimeout(heroTimer);
-      clearTimeout(columnsTimer);
-    };
+    // Immediate clean loading
+    setHeroVisible(true);
+    setColumnsVisible(true);
   }, []);
 
   const howItWorksFeatures = [

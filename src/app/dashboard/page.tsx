@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { TopBar } from "../../../components/layout/TopBar";
 import { Sidebar } from "../../../components/layout/Sidebar";
 import { Dashboard } from "../../../components/dashboard/Dashboard";
@@ -14,6 +14,7 @@ type DashboardPage = "home" | "data-sources" | "reports";
 export default function DashboardPageComponent() {
   const [currentPage, setCurrentPage] = useState<DashboardPage>("home");
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   // Handle URL query parameter for page selection
   useEffect(() => {
@@ -36,13 +37,22 @@ export default function DashboardPageComponent() {
     }
   };
 
+  const handlePageChange = (page: DashboardPage) => {
+    setCurrentPage(page);
+    if (page === "home") {
+      router.push('/dashboard');
+    } else {
+      router.push(`/dashboard?page=${page}`);
+    }
+  };
+
   return (
     <div className="h-screen flex flex-col bg-[#F6F7FB]">
-      <TopBar onNavigateHome={() => setCurrentPage("home")} />
+      <TopBar onNavigateHome={() => handlePageChange("home")} />
       <div className="flex flex-1 overflow-hidden">
         <Sidebar 
           currentPage={currentPage}
-          onPageChange={setCurrentPage}
+          onPageChange={handlePageChange}
         />
         <main className="flex-1 overflow-auto pl-8">
           {renderPage()}

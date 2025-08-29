@@ -15,15 +15,18 @@ model Organization {
   logoUrl     String?
   siteUrl     String?
   industry    String?
+  vertical    String?                     // Business vertical/category
   platform    String?                     // "Shopify" | "WooCommerce" | "Custom" | "Other"
   timezone    String?                     // IANA tz, e.g. "America/New_York"
   updatedAt   DateTime @updatedAt
   createdAt   DateTime @default(now())
 
   // domain tables will reference organizationId
-  apiTokens ApiToken[]
-  reviews   Review[]
-  reports   Report[]
+  apiTokens   ApiToken[]
+  reviews     Review[]
+  reports     Report[]
+  social      Social[]
+  companyInfo CompanyInfo?
   // insights  Insight[]
 
   @@map("organizations")
@@ -55,13 +58,7 @@ model Review {
   rating             Int
   title              String?
   body               String
-  reviewerName       String?
-  reviewerEmail      String?
   createdAtRemote    DateTime
-  updatedAtRemote    DateTime?
-  publishedAtRemote  DateTime?
-  verified           Boolean?
-  helpful            Int      @default(0)
   source             String   @default("judgeme")
   productExternalId  String?
   productHandle      String?
@@ -100,4 +97,106 @@ model Report {
   organization        Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
 
   @@map("reports")
+}
+
+model Social {
+  id                 String   @id @default(cuid())
+  organizationId     String
+  externalId         String
+  platform           String   @default("tiktok")    // "tiktok", "instagram", "twitter", etc.
+  source             String   @default("tiktok")    // "tiktok", "instagram", "twitter", etc.
+  contentType        String   @default("comment")   // "comment", "reply", "post", etc.
+  contentUrl         String?
+  contentTitle       String?
+  text               String
+  timestamp          String?
+  isReply            Boolean  @default(false)
+  parentId           String?
+  threadData         Json?                          // Store thread structure
+  raw                Json?                          // Store raw scraped data
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  organization       Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, externalId, source], name: "social_organizationId_externalId_source_key")
+  @@map("social")
+}
+
+model CompanyInfo {
+  id                      String   @id @default(cuid())
+  organizationId          String   @unique
+  
+  // Business Fundamentals
+  businessModel           String?  // 'b2c', 'b2b', 'd2c', 'marketplace', 'subscription'
+  companyStage            String?  // 'pre-launch', 'startup', 'growth', 'scale', 'enterprise'
+  foundingYear            Int?
+  employeeCount           String?  // '1-10', '11-50', '51-200', '201-500', '500+'
+  annualRevenue           String?  // 'pre-revenue', '<100k', '100k-1m', '1m-10m', '10m-50m', '50m+'
+  
+  // Product/Service Details
+  productCategories       Json?    // ['skincare', 'supplements', 'apparel', etc.]
+  priceRange              Json?    // {min: 15, max: 150, average: 45, currency: 'USD'}
+  skuCount                Int?
+  heroProducts            Json?    // [{name, id, price, description}] top 5 products
+  productLifecycle        String?  // 'consumable', 'durable', 'seasonal', 'evergreen'
+  purchaseFrequency       String?  // 'one-time', 'monthly', 'quarterly', 'annual'
+  
+  // Customer Demographics
+  targetAudience          Json?    // {age: '25-45', gender: 'all', income: 'middle-high'}
+  customerPersonas        Json?    // Array of persona objects
+  primaryMarkets          Json?    // ['US', 'CA', 'UK'] ISO country codes
+  customerLifetimeValue   Decimal? @db.Decimal(10,2)
+  averageOrderValue       Decimal? @db.Decimal(10,2)
+  
+  // Competitive Landscape
+  directCompetitors       Json?    // [{name, website, strengths, weaknesses}]
+  indirectCompetitors     Json?
+  marketPosition          String?  // 'leader', 'challenger', 'follower', 'nicher'
+  uniqueSellingProps      Json?    // ['organic', 'made in usa', 'celebrity founded']
+  competitiveAdvantages   String[]
+  
+  // Marketing & Brand
+  brandValues             Json?    // ['sustainability', 'luxury', 'accessibility']
+  brandVoice              String?  // 'professional', 'friendly', 'quirky', 'authoritative'
+  marketingChannels       Json?    // {primary: ['instagram', 'email'], secondary: [...]}
+  contentThemes           Json?    // Topics they focus on
+  influencerPartnerships  Boolean  @default(false)
+  affiliateProgram        Boolean  @default(false)
+  
+  // Operations & Logistics
+  fulfillmentMethod       String?  // 'self-fulfilled', '3pl', 'dropship', 'hybrid'
+  shippingZones           Json?    // Countries/regions they ship to
+  averageShippingTime     String?  // '1-2 days', '3-5 days', '1-2 weeks'
+  returnRate              Decimal? @db.Decimal(5,2) // Percentage
+  returnPolicyDays        Int?
+  
+  // Sales Channels
+  salesChannels           Json?    // {online: ['website', 'amazon'], offline: ['retail']}
+  marketplacePresence     Json?    // ['amazon', 'etsy', 'walmart']
+  retailPresence          Boolean  @default(false)
+  wholesaleEnabled        Boolean  @default(false)
+  subscriptionOffering    Boolean  @default(false)
+  
+  // Goals & Challenges
+  businessGoals           Json?    // Current quarter/year objectives
+  keyChallenges           Json?    // ['inventory', 'acquisition', 'retention']
+  growthTargets           Json?    // {revenue: '50%', customers: '30%'}
+  successMetrics          Json?    // KPIs they track
+  
+  // Intelligence Preferences
+  reportFocusAreas        Json?    // ['conversion', 'retention', 'competition']
+  alertThresholds         Json?    // {negative_reviews: 0.2, competitor_mentions: 0.1}
+  excludedTopics          Json?    // Topics to ignore in analysis
+  customSegments          Json?    // Customer segments they want tracked
+  
+  // Metadata
+  dataQualityScore        Decimal? @db.Decimal(3,2) // 0-1 completeness score
+  lastEnrichedAt          DateTime?
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+
+  organization            Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@map("company_info")
 }
